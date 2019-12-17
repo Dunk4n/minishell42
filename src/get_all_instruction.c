@@ -6,17 +6,17 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 17:41:38 by niduches          #+#    #+#             */
-/*   Updated: 2019/12/16 18:46:46 by niduches         ###   ########.fr       */
+/*   Updated: 2019/12/17 14:22:58 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 const char	*g_builtins_name[] = {"echo", "cd", "pwd", "export", "unset", "env",
-"exit", NULL};
+	"exit", NULL};
 
 int			(*const g_builtins[])(size_t, char**, t_env*) = {ft_echo, NULL,
-ft_pwd, NULL, NULL, ft_env, ft_exit};
+	ft_pwd, ft_export, ft_unset, ft_env, ft_exit};
 
 static int	is_builtins(char *name)
 {

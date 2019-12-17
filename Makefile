@@ -6,7 +6,7 @@
 #    By: niduches <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/15 19:02:16 by niduches          #+#    #+#              #
-#    Updated: 2019/12/16 17:45:46 by niduches         ###   ########.fr        #
+#    Updated: 2019/12/17 14:22:06 by niduches         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,8 @@ SRC_PATH	=	main.c					\
 				env.c					\
 				pwd.c					\
 				get_all_instruction.c	\
+				export.c				\
+				unset.c					\
 
 SRC = $(addprefix $(D_SRC),$(SRC_PATH))
 

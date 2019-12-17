@@ -6,7 +6,7 @@
 #    By: niduches <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/08 14:45:08 by niduches          #+#    #+#              #
-#    Updated: 2019/10/25 22:30:02 by niduches         ###   ########.fr        #
+#    Updated: 2019/12/17 13:14:03 by niduches         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ SRC		=	ft_atoi.c					\
 			ft_calloc.c					\
 			ft_isdigit.c				\
 			ft_isprint.c				\
+			ft_isspace.c				\
 			ft_bzero.c					\
 			ft_itoa.c					\
 			ft_memccpy.c				\

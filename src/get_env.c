@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/15 21:22:44 by niduches          #+#    #+#             */
-/*   Updated: 2019/12/16 16:18:33 by niduches         ###   ########.fr       */
+/*   Updated: 2019/12/17 14:05:35 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static size_t	env_len(char *str)
 	return (i);
 }
 
-char			*get_env(t_env *env, char *to_find, char key)
+char			**get_env(t_env *env, char *to_find)
 {
 	size_t	i;
 	size_t	tmp;
@@ -40,12 +40,7 @@ char			*get_env(t_env *env, char *to_find, char key)
 			continue ;
 		}
 		if (!(ft_strncmp(env->env[i], to_find, tmp)))
-		{
-			if (key == 1)
-				return (env->env[i]);
-			else
-				return (env->env[i] + tmp + 1);
-		}
+			return (&env->env[i]);
 		i++;
 	}
 	return (NULL);
