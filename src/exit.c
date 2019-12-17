@@ -17,10 +17,10 @@ int		ft_exit(size_t ac, char **av, t_env *env)
 {
 	size_t	i;
 
-	write(1, "exit\n", 5);
+	if (av)
+		write(1, "exit\n", 5);
 	if (!env->env)
 		exit(0);
-	(void)av;
 	(void)ac;
 	i = 0;
 	while (env->env[i])

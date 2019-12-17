@@ -29,6 +29,8 @@ SRC_PATH	=	main.c					\
 				get_all_instruction.c	\
 				export.c				\
 				unset.c					\
+				to_line_env.c			\
+				put_in_line.c			\
 
 SRC = $(addprefix $(D_SRC),$(SRC_PATH))
 
@@ -41,7 +43,7 @@ NAME	=	minishell
 OBJ			=	$(SRC:%.c=$(BUILD_DIR)/%.o)
 OBJ_BONUS	=	$(SRC_BONUS:%.c=$(BUILD_DIR)/%.o)
 
-CFLAGS	=	-I$(D_INC) -Wall -Wextra #-Werror
+CFLAGS	=	-g -I$(D_INC) -Wall -Wextra #-Werror
 
 LDFLAGS	=	-L./libft/ -lft
 

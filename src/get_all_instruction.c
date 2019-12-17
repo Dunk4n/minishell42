@@ -57,7 +57,7 @@ static int	exec_instruction(char *inst, t_env *env)
 		return (-1);
 	}
 	ret = 0;
-	if ((indx = is_builtins(argv[0])) >= 0)
+	if (argv[0] && (indx = is_builtins(argv[0])) >= 0)
 		ret = exec_builtins(argv, env, indx);
 	free(inst);
 	indx = 0;

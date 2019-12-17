@@ -59,6 +59,7 @@ static int	put_in_buff(char *line, char *tmp, ssize_t size, char *buff)
 	return (ret);
 }
 
+#include <string.h>
 static char	*next_line(int fd, char *buff, size_t nb, int *rt)
 {
 	char	tmp[BUFFER_SIZE];
@@ -71,7 +72,7 @@ static char	*next_line(int fd, char *buff, size_t nb, int *rt)
 	i = 0;
 	while (i < size && tmp[i] && tmp[i] != '\n')
 		i++;
-	if (tmp[i] == '\n' || size < 0 || nb + size == 0)
+	if ((i < BUFFER_SIZE && tmp[i] == '\n') || size < 0 || nb + size == 0)
 	{
 		if (!(line = malloc((nb + i + 1) * sizeof(char))))
 			return (NULL);

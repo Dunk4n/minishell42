@@ -28,8 +28,12 @@ int		main(int ac, char **av, char **arg_env)
 	{
 		write(1, "$> ", 3);
 		if (!get_next_line(0, &line) && (!line || !line[0]))
-			ft_exit(1, NULL, &env);
-		//TODO line -> line with env variable
+		{
+			free(line);
+			ft_exit(0, (void*)1, &env);
+		}
+		if (!(line = to_line_env(line, &env)))
+			ft_exit(0, NULL, &env);
 		get_all_instruction(line, &env);
 	}
 	return (0);

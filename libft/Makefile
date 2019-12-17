@@ -62,7 +62,7 @@ LIB		=	printf/printf.a				\
 
 OBJ		=	$(SRC:%.c=%.o)
 
-CFLAGS	+=	-Wall -Wextra -Werror
+CFLAGS	+=	-g -Wall -Wextra -Werror
 
 NAME	=	libft.a
 
