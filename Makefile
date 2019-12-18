@@ -31,6 +31,8 @@ SRC_PATH	=	main.c					\
 				unset.c					\
 				to_line_env.c			\
 				put_in_line.c			\
+				get_var_len.c			\
+				custom_split.c			\
 
 SRC = $(addprefix $(D_SRC),$(SRC_PATH))
 

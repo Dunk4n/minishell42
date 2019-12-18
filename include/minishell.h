@@ -33,5 +33,7 @@ int				ft_export(size_t ac, char **av, t_env *env);
 int				ft_unset(size_t ac, char **av, t_env *env);
 char			*to_line_env(char *line, t_env *env);
 size_t			put_in_line(char *line, char *new_line, t_env *env);
+size_t			get_var_len(char *line, size_t *idx, t_env *env);
+char			**custom_split(char const *str, char *set);
 
 #endif

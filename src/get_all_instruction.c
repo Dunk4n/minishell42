@@ -50,8 +50,7 @@ static int	exec_instruction(char *inst, t_env *env)
 	int		ret;
 	int		indx;
 
-	//TODO change to custom split for "" case
-	if (!(argv = ft_split(inst, " \n\t")))
+	if (!(argv = custom_split(inst, " \n\t\v\f")))
 	{
 		free(inst);
 		return (-1);
@@ -72,8 +71,7 @@ void		get_all_instruction(char *line, t_env *env)
 	char	**instructions;
 	size_t	i;
 
-	//TODO change to custom split for abc";"def case
-	if (!(instructions = ft_split(line, ";")))
+	if (!(instructions = custom_split(line, ";")))
 	{
 		free(line);
 		return ;
