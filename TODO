@@ -1,20 +1,20 @@
-• Show a prompt when waiting for a new command											|	N
+• Show a prompt when waiting for a new command											|	done
 • Search and launch the right executable (based on the PATH variable or by using
 relative or absolute path) like in bash													|	N
 • It must implement the builtins like in bash:											|	N
  ◦ echo with option ’-n’																|	done
  ◦ cd without ’-’ option																|	
  ◦ pwd without any options																|	done
- ◦ export without any options															|	
- ◦ unset without any options															|
+ ◦ export without any options															|	done
+ ◦ unset without any options															|	done
  ◦ env without any options and any arguments											|	done
  ◦ exit without any options																|	done
-• ; in the command should separate commands like in bash
-• ’ and " should work like in bash except for multiline commands
+• ; in the command should separate commands like in bash								|	done
+• ’ and " should work like in bash except for multiline commands						|	done
 • Redirections < > “>>” should work like in bash except for file descriptor aggregation
 • Pipes | should work like in bash
-• Environment variables ($ followed by characters) should work like in bash				|	N
-• $? should work like in bash															|	N
+• Environment variables ($ followed by characters) should work like in bash				|	done
+• $? should work like in bash															|	done
 • ctrl-C, ctrl-D and ctrl-\ should have the same result as in bash
 
 BONUS:

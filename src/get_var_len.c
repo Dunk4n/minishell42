@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_var_len.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/12/18 19:44:41 by niduches          #+#    #+#             */
+/*   Updated: 2019/12/18 19:45:23 by niduches         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "minishell.h"
 
@@ -43,8 +54,8 @@ size_t			get_var_len(char *line, size_t *idx, t_env *env)
 	if (*line == '?')
 		return (get_len_var_ret(idx, env));
 	i = 0;
-	while (line[i] && !ft_isspace(line[i]) && line[i] != '$' && line[i] != '\"'
-&& line[i] != '\'')
+	while (line[i] && !ft_isspace(line[i]) && line[i] != '$' && line[i] !=
+'\"' && line[i] != '\'')
 		i++;
 	if (!i)
 		return (0);

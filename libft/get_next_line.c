@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 12:27:24 by niduches          #+#    #+#             */
-/*   Updated: 2019/12/16 17:22:22 by niduches         ###   ########.fr       */
+/*   Updated: 2019/12/18 19:41:30 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ static int	put_in_buff(char *line, char *tmp, ssize_t size, char *buff)
 	return (ret);
 }
 
-#include <string.h>
 static char	*next_line(int fd, char *buff, size_t nb, int *rt)
 {
 	char	tmp[BUFFER_SIZE];

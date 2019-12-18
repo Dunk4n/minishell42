@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/17 13:14:22 by niduches          #+#    #+#             */
-/*   Updated: 2019/12/17 15:19:06 by niduches         ###   ########.fr       */
+/*   Updated: 2019/12/18 19:43:50 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,8 @@ static int	good_arg(char *str, t_env *env, int same)
 		str[i] = '=';
 		tmp2 = *tmp;
 		if (same)
-		{
-			if (!(*tmp = ft_strdup(str)))
-				*tmp = tmp2;
-			else
-				free(tmp2);
-		}
+			(!(*tmp = ft_strdup(str))) ?
+*tmp = tmp2 : free(tmp2);
 		return (0);
 	}
 	str[i] = '=';

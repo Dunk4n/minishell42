@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   put_in_line.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/12/18 19:45:37 by niduches          #+#    #+#             */
+/*   Updated: 2019/12/18 19:47:14 by niduches         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "minishell.h"
 
@@ -56,8 +67,8 @@ t_env *env)
 	if (*line == '?')
 		return (put_var_ret(new_line, idx, env));
 	i = 0;
-	while (line[i] && !ft_isspace(line[i]) && line[i] != '$' && line[i] != '\"'
-&& line[i] != '\'')
+	while (line[i] && !ft_isspace(line[i]) && line[i] != '$' && line[i] !=
+'\"' && line[i] != '\'')
 		i++;
 	if (!i)
 		return (0);
@@ -83,7 +94,7 @@ size_t			put_in_line(char *line, char *new_line, t_env *env)
 	while (line[i])
 	{
 		while (line[i] && (line[i] != '$' || ft_isspace(line[i + 1]) || !line[i
-+ 1] || line[i + 1] == '$' || line[i + 1] == '\"' || line[i + 1] == '\''))
+	+ 1] || line[i + 1] == '$' || line[i + 1] == '\"' || line[i + 1] == '\''))
 			new_line[nb++] = line[i++];
 		if (line[i] == '$')
 			nb += put_var_in_line(line + i + 1, new_line + nb, &i, env);
