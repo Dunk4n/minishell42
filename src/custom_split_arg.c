@@ -18,15 +18,14 @@ static int	get_nb(char const *s, char *in)
 	int		i;
 	char	sep;
 
-	*((short*)in) = 0;
 	sep = 1;
 	nb = 0;
 	i = 0;
 	while (s[i])
 	{
-		if ((s[i] == '\"') && (i == 0 || s[i - 1] != '\\'))
+		if (s[i] == '\"' && !in[1])
 			in[0] = (in[0] == 0) ? 1 : 0;
-		if ((s[i] == '\'') && (i == 0 || s[i - 1] != '\\'))
+		if ((s[i] == '\'') && !in[0])
 			in[1] = (in[1] == 0) ? 1 : 0;
 		if (in_str(s[i], " \t") && !*((short*)in) && !sep)
 			sep = 1;
@@ -35,7 +34,8 @@ static int	get_nb(char const *s, char *in)
 			sep = 0;
 			nb++;
 		}
-		i++;
+		i += (((!in[1] || (in[0] && (s[i + 1] == '\\' || s[i + 1] == '\"'))) &&
+s[i] == '\\') && s[i + 1]) ? 2 : 1;
 	}
 	return (nb);
 }
@@ -48,15 +48,19 @@ static int	get_len_arg_no(char const *s, char *in, int *tab)
 	tab[1] = 0;
 	while (s[tab[1]] && (!in_str(s[tab[1]], " \t") || *((short*)in)))
 	{
-		if (!in[1] && s[tab[1]] == '\"' && (*tab + tab[1] == 0 || s[tab[1] - 1]
-!= '\\'))
+		if (!in[1] && s[tab[1]] == '\"')
 			in[0] = (in[0] == 0) ? 1 : 0;
-		else if (s[tab[1]] == '\'' && (*tab + tab[1] == 0 || s[tab[1] - 1]
-!= '\\'))
+		else if (s[tab[1]] == '\'' && !in[0])
 			in[1] = (in[1] == 0) ? 1 : 0;
 		else if (s[tab[1]] != '\\' || (*tab + tab[1] != 0 && s[tab[1] - 1] ==
 '\\'))
 			nb++;
+		if ((!in[1] || (in[0] && (s[tab[1] + 1] == '\\' || s[tab[1] + 1] ==
+'\"'))) && s[tab[1]] == '\\')
+		{
+			if (s[tab[1] + 1])
+				tab[1]++;
+		}
 		tab[1]++;
 	}
 	tab[1] = 0;
@@ -67,20 +71,24 @@ static int	get_len_arg_no(char const *s, char *in, int *tab)
 
 static void	put_in_line_no(char *s, char *in, char *line, int *tab)
 {
-	if (!in[1] && s[tab[1]] == '\"' && (tab[0] + tab[1] == 0 || (s[tab[1] - 1]
-!= '\\')))
+	if (!in[1] && s[tab[1]] == '\"')
 		in[0] = (in[0] == 0) ? 1 : 0;
-	else if (s[tab[1]] == '\'' && (tab[1] == 0 || (s[tab[1] - 1] != '\\' ||
-*((short*)in))))
+	else if (s[tab[1]] == '\'' && !in[0])
 		in[1] = (in[1] == 0) ? 1 : 0;
 	else if ((!*((short*)in) || (in[0] && s[tab[1] + 1] == '\"')) &&
 s[tab[1]] == '\\')
 	{
 		if (s[tab[1] + 1])
-			line[tab[2]++] = s[++tab[1]];
+			line[tab[2]++] = s[tab[1] + 1];
 	}
 	else
 		line[tab[2]++] = s[tab[1]];
+	if ((!in[1] || (in[0] && (s[tab[1] + 1] == '\\' || s[tab[1] + 1] ==
+'\"'))) && s[tab[1]] == '\\')
+	{
+		if (s[tab[1] + 1])
+			tab[1]++;
+	}
 	tab[1]++;
 }
 
@@ -112,6 +120,7 @@ char		**custom_split_arg(char const *str)
 	char	in[2];
 	char	**array;
 
+	*((short*)in) = 0;
 	nb = get_nb(str, in);
 	if (!(array = malloc((nb + 1) * sizeof(char*))))
 		return (NULL);

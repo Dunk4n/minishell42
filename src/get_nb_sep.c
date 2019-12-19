@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-static int		is_sep(char *line)
+static size_t	is_sep(char *line)
 {
 	if (!ft_strncmp(line, ">>", 2))
 		return (2);
@@ -31,12 +31,18 @@ static int		is_sep(char *line)
 
 static size_t	pass_dcote(char *line)
 {
-	return (0);
-}
+	size_t	i;
 
-static size_t	pass_cote(char *line)
-{
-	return (0);
+	i = 1;
+	while (line[i] && line[i] != '\"')
+	{
+		if (line[i] == '\\' && (line[i] == '\"' || line[i] == '\\'))
+			i++;
+		i++;
+	}
+	if (line[i] == '\"')
+		i++;
+	return (i);
 }
 
 static size_t	pass_normal(char *line)
@@ -47,30 +53,47 @@ static size_t	pass_normal(char *line)
 	while (line[i] && !is_sep(line + i))
 	{
 		if (line[i] == '\\')
-		{
-			if (line[++i])
-				i++;
-		}
+			i += (line[i + 1]) ? 2 : 1;
 		else if (line[i] == '\"')
 			i += pass_dcote(line + i);
 		else if (line[i] == '\'')
-			i += pass_cote(line + i);
+		{
+			i++;
+			while (line[i] && line[i] != '\'')
+				i++;
+			if (line[i] == '\'')
+				i++;
+		}
 		else
 		{
-			while (line[i] && !is_sep(line + i))
+			while (line[i] && line[i] != '\\' && line[i] != '\"' && line[i] !=
+'\'' && !is_sep(line + i))
 				i++;
 		}
 	}
 	return (i);
 }
 
+static int		is_only_space(char *line, size_t end)
+{
+	size_t	j;
+
+	j = 0;
+	while (j < end)
+	{
+		if (!in_str(line[j], " \t"))
+			return (0);
+		j++;
+	}
+	return (1);
+}
+
 int				get_nb_sep(char *line)
 {
 	int		nb;
-	int		tmp;
 	size_t	i;
+	size_t	tmp;
 
-	printf("[%s]\n", line);
 	nb = 0;
 	i = 0;
 	while (line[i])
@@ -79,10 +102,14 @@ int				get_nb_sep(char *line)
 			i += tmp;
 		else
 		{
-			printf("normal\n");
-			i += pass_normal(line + i);
+			tmp = pass_normal(line + i);
+			if (is_only_space(line + i, tmp))
+			{
+				i += tmp;
+				continue ;
+			}
+			i += tmp;
 		}
-		printf("i = %zi\n", i);
 		nb++;
 	}
 	return (nb);

@@ -14,9 +14,27 @@
 
 char	**custom_split_sep(char *line)
 {
-	int	nb;
+	int		i;
+	int		word;
+	int		nb;
+	char	**array;
 
 	nb = get_nb_sep(line);
-	printf("nb = %d\n", nb);
-	return (NULL);
+	if (!(array = malloc((nb + 1) sizeof(char*))))
+		return (NULL);
+	i = 0;
+	word = 0;
+	while (word < nb)
+	{
+		if (!(array[word] = fill_in(line, &i)))
+		{
+			while(--word >= 0)
+				free(array[word]);
+			free(array);
+			return (NULL);
+		}
+		word++;
+	}
+	array[word] = NULL;
+	return (array);
 }
