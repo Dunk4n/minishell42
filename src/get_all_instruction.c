@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 17:41:38 by niduches          #+#    #+#             */
-/*   Updated: 2019/12/18 19:50:58 by niduches         ###   ########.fr       */
+/*   Updated: 2019/12/19 02:38:51 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,15 +50,15 @@ static int	exec_instruction(char *inst, t_env *env)
 	int		ret;
 	int		indx;
 
-	if (!(argv = custom_split(inst, " \n\t\v\f", 0)))
+	if (!(argv = custom_split_arg(inst)))
 	{
 		free(inst);
 		return (-1);
 	}
+	free(inst);
 	ret = 0;
 	if (argv[0] && (indx = is_builtins(argv[0])) >= 0)
 		ret = exec_builtins(argv, env, indx);
-	free(inst);
 	indx = 0;
 	while (argv[indx])
 		free(argv[indx++]);
@@ -71,7 +71,7 @@ void		get_all_instruction(char *line, t_env *env)
 	char	**instructions;
 	size_t	i;
 
-	if (!(instructions = custom_split(line, ";", 1)))
+	if (!(instructions = custom_split_instr(line)))
 	{
 		free(line);
 		return ;

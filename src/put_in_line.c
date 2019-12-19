@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 19:45:37 by niduches          #+#    #+#             */
-/*   Updated: 2019/12/18 19:47:14 by niduches         ###   ########.fr       */
+/*   Updated: 2019/12/18 22:24:33 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,14 +88,21 @@ size_t			put_in_line(char *line, char *new_line, t_env *env)
 {
 	size_t	i;
 	size_t	nb;
+	char	in;
 
+	in = 0;
 	nb = 0;
 	i = 0;
 	while (line[i])
 	{
-		while (line[i] && (line[i] != '$' || ft_isspace(line[i + 1]) || !line[i
-	+ 1] || line[i + 1] == '$' || line[i + 1] == '\"' || line[i + 1] == '\''))
+		while (line[i] && (in || line[i] != '$' || (i > 0 && line[i - 1] ==
+'\\') || ft_isspace(line[i + 1]) || !line[i + 1] || line[i + 1] == '$' ||
+line[i + 1] == '\"' || line[i + 1] == '\''))
+		{
+			if (line[i] == '\'')
+				in = (in + 1) % 2;
 			new_line[nb++] = line[i++];
+		}
 		if (line[i] == '$')
 			nb += put_var_in_line(line + i + 1, new_line + nb, &i, env);
 	}

@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 19:46:54 by niduches          #+#    #+#             */
-/*   Updated: 2019/12/18 19:47:00 by niduches         ###   ########.fr       */
+/*   Updated: 2019/12/18 22:29:42 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ static int		is_env_variable(char *line)
 	i = 0;
 	while (line[i])
 	{
-		if (line[i] == '$' && line[i + 1] != '\0' && !ft_isspace(line[i + 1]))
+		if (line[i] == '$' && (i == 0 || line[i - 1] != '\\') &&
+line[i + 1] != '\0' && !ft_isspace(line[i + 1]))
 			return (1);
 		i++;
 	}
@@ -30,15 +31,19 @@ static size_t	get_len_envline(char *line, t_env *env)
 {
 	size_t	i;
 	size_t	nb;
+	char	in;
 
 	nb = 0;
 	i = 0;
+	in = 0;
 	while (line[i])
 	{
-		while (line[i] && (line[i] != '$' || ft_isspace(line[i + 1]) || !line[i
-	+ 1] || line[i + 1] == '$' || line[i + 1] == '\"' || line[i + 1] == '\''))
+		while (line[i] && (in || line[i] != '$' || (i > 0 && line[i - 1] ==
+'\\') || ft_isspace(line[i + 1]) || !line[i + 1] || line[i + 1] == '$' ||
+line[i + 1] == '\"' || line[i + 1] == '\''))
 		{
-			i++;
+			if (line[i++] == '\'')
+				in = (in + 1) % 2;
 			nb++;
 		}
 		if (line[i] == '$')
