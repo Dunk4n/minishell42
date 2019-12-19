@@ -6,7 +6,7 @@
 #    By: niduches <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/15 19:02:16 by niduches          #+#    #+#              #
-#    Updated: 2019/12/19 02:04:09 by niduches         ###   ########.fr        #
+#    Updated: 2019/12/19 17:44:42 by niduches         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,9 @@ SRC_PATH	=	main.c					\
 				get_var_len.c			\
 				custom_split_instr.c	\
 				custom_split_arg.c		\
+				custom_split_sep.c		\
+				get_nb_sep.c			\
+				in_str.c				\
 
 SRC = $(addprefix $(D_SRC),$(SRC_PATH))
 

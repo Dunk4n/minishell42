@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/15 19:07:52 by niduches          #+#    #+#             */
-/*   Updated: 2019/12/19 02:03:34 by niduches         ###   ########.fr       */
+/*   Updated: 2019/12/19 17:45:42 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,7 @@ size_t			get_var_len(char *line, size_t *idx, t_env *env);
 int				in_str(char c, char const *charset);
 char			**custom_split_arg(char const *str);
 char			**custom_split_instr(char const *str);
+char			**custom_split_sep(char *line);
+int				get_nb_sep(char *line);
 
 #endif

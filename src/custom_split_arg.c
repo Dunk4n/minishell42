@@ -6,22 +6,11 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 18:58:40 by niduches          #+#    #+#             */
-/*   Updated: 2019/12/19 02:38:20 by niduches         ###   ########.fr       */
+/*   Updated: 2019/12/19 17:05:01 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int			in_str(char c, char const *charset)
-{
-	size_t	i;
-
-	i = 0;
-	while (charset[i])
-		if (charset[i++] == c)
-			return (1);
-	return (0);
-}
 
 static int	get_nb(char const *s, char *in)
 {
@@ -51,51 +40,67 @@ static int	get_nb(char const *s, char *in)
 	return (nb);
 }
 
-static int	get_len_arg_no(char const *s, char *in, int *j, int *i)
+static int	get_len_arg_no(char const *s, char *in, int *tab)
 {
 	int		nb;
 
 	nb = 0;
-	*j = 0;
-	while (s[*j] && (!in_str(s[*j], " \t") || *((short*)in)))
+	tab[1] = 0;
+	while (s[tab[1]] && (!in_str(s[tab[1]], " \t") || *((short*)in)))
 	{
-		if (!in[1] && s[*j] == '\"' && (*i + *j == 0 || s[*j - 1] != '\\'))
+		if (!in[1] && s[tab[1]] == '\"' && (*tab + tab[1] == 0 || s[tab[1] - 1]
+!= '\\'))
 			in[0] = (in[0] == 0) ? 1 : 0;
-		else if (s[*j] == '\'' && (*i + *j == 0 || s[*j - 1] != '\\'))
+		else if (s[tab[1]] == '\'' && (*tab + tab[1] == 0 || s[tab[1] - 1]
+!= '\\'))
 			in[1] = (in[1] == 0) ? 1 : 0;
-		else if (s[*j] != '\\' || (*i + *j != 0 && s[*j - 1] == '\\'))
+		else if (s[tab[1]] != '\\' || (*tab + tab[1] != 0 && s[tab[1] - 1] ==
+'\\'))
 			nb++;
-		(*j)++;
+		tab[1]++;
 	}
+	tab[1] = 0;
+	tab[2] = 0;
+	*((short*)in) = 0;
 	return (nb);
+}
+
+static void	put_in_line_no(char *s, char *in, char *line, int *tab)
+{
+	if (!in[1] && s[tab[1]] == '\"' && (tab[0] + tab[1] == 0 || (s[tab[1] - 1]
+!= '\\')))
+		in[0] = (in[0] == 0) ? 1 : 0;
+	else if (s[tab[1]] == '\'' && (tab[1] == 0 || (s[tab[1] - 1] != '\\' ||
+*((short*)in))))
+		in[1] = (in[1] == 0) ? 1 : 0;
+	else if ((!*((short*)in) || (in[0] && s[tab[1] + 1] == '\"')) &&
+s[tab[1]] == '\\')
+	{
+		if (s[tab[1] + 1])
+			line[tab[2]++] = s[++tab[1]];
+	}
+	else
+		line[tab[2]++] = s[tab[1]];
+	tab[1]++;
 }
 
 static char	*fill_in_no(char *s, int *i, char *in)
 {
-	int		j;
-	int		k;
+	int		tab[3];
 	char	*line;
 
 	while (in_str(s[*i], " \t"))
 		(*i)++;
 	s += *i;
-	if (!(line = malloc((get_len_arg_no(s, in, &j, i) + 1) * sizeof(char))))
+	tab[0] = *i;
+	if (!(line = malloc((get_len_arg_no(s, in, tab) + 1) * sizeof(char))))
 		return (NULL);
-	j = 0;
-	k = 0;
-	*((short*)in) = 0;
-	while (s[j] && (!in_str(s[j], " \t") || *((short*)in)))
+	while (s[tab[1]] && (!in_str(s[tab[1]], " \t") || *((short*)in)))
 	{
-		if (!in[1] && s[j] == '\"' && (*i + j == 0 || s[j - 1] != '\\'))
-			in[0] = (in[0] == 0) ? 1 : 0;
-		else if (s[j] == '\'' && (j == 0 || s[j - 1] != '\\'))
-			in[1] = (in[1] == 0) ? 1 : 0;
-		else
-			line[k++] = s[j];
-		j++;
+		put_in_line_no(s, in, line, tab);
 	}
-	line[k] = '\0';
-	*i += j;
+	line[tab[2]] = '\0';
+	*i += tab[1];
 	return (line);
 }
 

@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 17:41:38 by niduches          #+#    #+#             */
-/*   Updated: 2019/12/19 02:38:51 by niduches         ###   ########.fr       */
+/*   Updated: 2019/12/19 17:46:11 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,27 @@ static int	exec_instruction(char *inst, t_env *env)
 	return (ret);
 }
 
+void		get_all_sep(char *line, t_env *env)
+{
+
+	char	**instructions;
+	size_t	i;
+
+	if (!(instructions = custom_split_sep(line)))
+	{
+		free(line);
+		return ;
+	}
+	free(line);
+	i = 0;
+	while (instructions[i])
+	{
+		printf("[%s]\n", instructions[i]);
+//		env->ret = exec_instruction(instructions[i++], env);
+	}
+	free(instructions);
+}
+
 void		get_all_instruction(char *line, t_env *env)
 {
 	char	**instructions;
@@ -79,6 +100,6 @@ void		get_all_instruction(char *line, t_env *env)
 	free(line);
 	i = 0;
 	while (instructions[i])
-		env->ret = exec_instruction(instructions[i++], env);
+		get_all_sep(instructions[i++], env);
 	free(instructions);
 }
