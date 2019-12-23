@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-static size_t	is_sep(char *line)
+size_t			is_sep(char *line)
 {
 	if (!ft_strncmp(line, ">>", 2))
 		return (2);
@@ -45,7 +45,7 @@ static size_t	pass_dcote(char *line)
 	return (i);
 }
 
-static size_t	pass_normal(char *line)
+size_t			pass_normal(char *line)
 {
 	size_t	i;
 
@@ -74,7 +74,7 @@ static size_t	pass_normal(char *line)
 	return (i);
 }
 
-static int		is_only_space(char *line, size_t end)
+int				is_only_space(char *line, size_t end)
 {
 	size_t	j;
 
@@ -90,7 +90,7 @@ static int		is_only_space(char *line, size_t end)
 
 int				get_nb_sep(char *line)
 {
-	int		nb;
+	size_t	nb;
 	size_t	i;
 	size_t	tmp;
 

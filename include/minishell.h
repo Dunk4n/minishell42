@@ -39,5 +39,8 @@ char			**custom_split_arg(char const *str);
 char			**custom_split_instr(char const *str);
 char			**custom_split_sep(char *line);
 int				get_nb_sep(char *line);
+int				is_only_space(char *line, size_t end);
+size_t			pass_normal(char *line);
+size_t			is_sep(char *line);
 
 #endif

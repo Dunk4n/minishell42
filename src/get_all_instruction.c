@@ -32,7 +32,7 @@ static int	is_builtins(char *name)
 	return (-1);
 }
 
-static int	exec_builtins(char **av, t_env *env, int indx)
+static int	exec_builtins(char **av, t_env *env, int idx)
 {
 	size_t	ac;
 
@@ -41,14 +41,14 @@ static int	exec_builtins(char **av, t_env *env, int indx)
 		ac++;
 	if (ac < 1)
 		return (0);
-	return (g_builtins[indx](ac - 1, av + 1, env));
+	return (g_builtins[idx](ac - 1, av + 1, env));
 }
 
 static int	exec_instruction(char *inst, t_env *env)
 {
 	char	**argv;
 	int		ret;
-	int		indx;
+	int		idx;
 
 	if (!(argv = custom_split_arg(inst)))
 	{
@@ -57,11 +57,11 @@ static int	exec_instruction(char *inst, t_env *env)
 	}
 	free(inst);
 	ret = 0;
-	if (argv[0] && (indx = is_builtins(argv[0])) >= 0)
-		ret = exec_builtins(argv, env, indx);
-	indx = 0;
-	while (argv[indx])
-		free(argv[indx++]);
+	if (argv[0] && (idx = is_builtins(argv[0])) >= 0)
+		ret = exec_builtins(argv, env, idx);
+	idx = 0;
+	while (argv[idx])
+		free(argv[idx++]);
 	free(argv);
 	return (ret);
 }
@@ -81,8 +81,9 @@ void		get_all_sep(char *line, t_env *env)
 	i = 0;
 	while (instructions[i])
 	{
-		printf("[%s]\n", instructions[i]);
-//		env->ret = exec_instruction(instructions[i++], env);
+		if (!is_sep(instructions[i]))
+			env->ret = exec_instruction(instructions[i], env);
+		i++;
 	}
 	free(instructions);
 }

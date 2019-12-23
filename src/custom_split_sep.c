@@ -12,15 +12,55 @@
 
 #include "minishell.h"
 
-char	**custom_split_sep(char *line)
+static int	get_len_sep(char *line, size_t *index)
 {
-	int		i;
+	size_t	nb;
+
+	if ((nb = is_sep(line)))
+	{
+
+	}
+	else
+	{
+		nb = pass_normal(line);
+		if (is_only_space(line, nb))
+		{
+			*index += nb;
+			return (0);
+		}
+	}
+	return (nb);
+}
+
+static char	*fill_in(char *line, size_t *index)
+{
+	char	*str;
+	size_t	i;
+	size_t	nb;
+
+	while (!(nb = get_len_sep(line + *index, index)) && *line);
+	if (!(str = malloc((nb + 1) * sizeof(char))))
+		return (NULL);
+	str[nb] = '\0';
+	i = 0;
+	while (i < nb)
+	{
+		str[i] = line[i + *index];
+		i++;
+	}
+	*index += nb;
+	return (str);
+}
+
+char		**custom_split_sep(char *line)
+{
+	size_t	i;
 	int		word;
 	int		nb;
 	char	**array;
 
 	nb = get_nb_sep(line);
-	if (!(array = malloc((nb + 1) sizeof(char*))))
+	if (!(array = malloc((nb + 1) * sizeof(char*))))
 		return (NULL);
 	i = 0;
 	word = 0;
