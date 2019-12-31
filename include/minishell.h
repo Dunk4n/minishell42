@@ -42,5 +42,7 @@ int				get_nb_sep(char *line);
 int				is_only_space(char *line, size_t end);
 size_t			pass_normal(char *line);
 size_t			is_sep(char *line);
+int				exec_bin(char **av, t_env *env);
+void			get_exec_path(char *path, char *name, t_env *env);
 
 #endif

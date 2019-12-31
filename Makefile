@@ -37,6 +37,8 @@ SRC_PATH	=	main.c					\
 				custom_split_sep.c		\
 				get_nb_sep.c			\
 				in_str.c				\
+				exec_bin.c				\
+				get_exec_path.c			\
 
 SRC = $(addprefix $(D_SRC),$(SRC_PATH))
 

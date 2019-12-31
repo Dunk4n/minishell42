@@ -6,7 +6,7 @@
 #    By: niduches <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/19 16:00:17 by niduches          #+#    #+#              #
-#    Updated: 2019/10/26 12:23:09 by niduches         ###   ########.fr        #
+#    Updated: 2019/10/28 14:42:22 by niduches         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,18 +23,23 @@ SRC		=		ft_printf.c				\
 				conv_nb_print_char.c	\
 				conv_float.c			\
 				conv_sct.c				\
+				conv_g.c				\
 				ft_get_flags.c			\
 				ft_isconv.c				\
 				ft_isflag.c				\
 				ft_makeconv.c			\
 				ft_putnstr.c			\
 				ft_put_long_nbr.c		\
+				conv_g_float.c			\
+				float_round.c			\
 
 OBJ		=	$(SRC:%.c=%.o)
 
 CFLAGS	+= -Wall -Wextra -Werror -I./include
 
 NAME	=	printf.a
+
+BUILD_DIR	=	build
 
 all:	$(NAME)
 
@@ -43,6 +48,8 @@ clean:
 
 fclean: clean
 	rm -f $(NAME)
+
+bonus: $(NAME)
 
 $(NAME): $(OBJ)
 	ar rc $(NAME) $(OBJ)

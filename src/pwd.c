@@ -16,7 +16,7 @@
 
 int		ft_pwd(size_t ac, char **av, t_env *env)
 {
-	char	buff[PATH_MAX];
+	char	buff[PATH_MAX + 1];
 
 	if (!env)
 		return (1);
