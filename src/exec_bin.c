@@ -64,6 +64,5 @@ int			exec_bin(char **av, t_env *env)
 		ft_printf("bash: %s: command not found\n", av[0]);
 		return (0);
 	}
-	printf("path: [%s]\n", path);
 	return (make_fork(path, av, env));
 }

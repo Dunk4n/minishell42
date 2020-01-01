@@ -5,7 +5,7 @@
 #include <limits.h>
 #include "minishell.h"
 
-int		is_binary(char *str)
+static int	is_direct_path(char *str)
 {
 	if (str[0] == '~' && (str[1] == '/' || !str[1]))
 		return (0);
@@ -18,7 +18,7 @@ int		is_binary(char *str)
 	return (1);
 }
 
-void	get_total_path(char *total_name, char *name, t_env *env)
+static void	get_total_path(char *total_name, char *name, t_env *env)
 {
 	size_t	i;
 	char	*path;
@@ -42,7 +42,7 @@ void	get_total_path(char *total_name, char *name, t_env *env)
 	ft_strcat(total_name, name);
 }
 
-int		good_path(char *path)
+static int	good_path(char *path)
 {
 	struct stat	statbuff;
 
@@ -51,20 +51,49 @@ int		good_path(char *path)
 	return (1);
 }
 
-void	get_exec_path(char *path, char *name, t_env *env)
+static void	get_env_path(char *new_path, char *name, char *path)
 {
-	char	total_name[PATH_MAX + 1];
+	int	i;
+
+	while (*path && *path != '=')
+		path++;
+	if (*path)
+		path++;
+	while (*path)
+	{
+		i = 0;
+		while (path[i] && path[i] != ':')
+			i++;
+		ft_strncpy(new_path, path, i);
+		ft_strcat(new_path, "/");
+		ft_strcat(new_path, name);
+		if (good_path(new_path))
+			return ;
+		*new_path = '\0';
+		path += i;
+		if (*path == ':')
+			path++;
+	}
+}
+
+void		get_exec_path(char *path, char *name, t_env *env)
+{
+	char	*env_path;
 
 	path[0] = '\0';
-	total_name[0] = '\0';
-	if (!is_binary(name))
+	if (!is_direct_path(name))
 	{
-		get_total_path(path, name, env);
+		if (*name != '/')
+			get_total_path(path, name, env);
+		else
+			ft_strcpy(path, name);
 		if (!good_path(path))
 			*path = '\0';
 	}
 	else
 	{
-		//PATH
+		if (!(env_path = (char*)get_env(env, "PATH")))
+			return ;
+		get_env_path(path, name, *((char**)env_path));
 	}
 }

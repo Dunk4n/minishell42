@@ -55,6 +55,7 @@ int				ft_strcmp(char const *s1, char const *s2);
 char			**ft_split(char const *s, char *charset);
 char			*ft_strcat(char *dest, char const *src);
 char			*ft_strcpy(char *dest, char const *src);
+char			*ft_strncpy(char *dest, char const *src, int n);
 
 int				ft_printf(const char *str, ...);
 
