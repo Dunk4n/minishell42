@@ -68,9 +68,9 @@ static int	exec_instruction(char *inst, t_env *env)
 	return (ret);
 }
 
+// separate line by '|', '>', '>>', ...
 void		get_all_sep(char *line, t_env *env)
 {
-
 	char	**instructions;
 	size_t	i;
 
@@ -81,15 +81,19 @@ void		get_all_sep(char *line, t_env *env)
 	}
 	free(line);
 	i = 0;
+//TODO pipe and redirection
 	while (instructions[i])
 	{
+		// exec instruction if is not '|', '>', '>>', ...
 		if (!is_sep(instructions[i]))
 			env->ret = exec_instruction(instructions[i], env);
+		free(instructions[i]);
 		i++;
 	}
 	free(instructions);
 }
 
+// separate line by ';'
 void		get_all_instruction(char *line, t_env *env)
 {
 	char	**instructions;
