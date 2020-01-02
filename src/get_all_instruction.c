@@ -51,11 +51,7 @@ static int	exec_instruction(char *inst, t_env *env)
 	int		idx;
 
 	if (!(argv = custom_split_arg(inst)))
-	{
-		free(inst);
 		return (-1);
-	}
-	free(inst);
 	ret = 0;
 	if (argv[0] && (idx = is_builtins(argv[0])) >= 0)
 		ret = exec_builtins(argv, env, idx);
@@ -68,27 +64,46 @@ static int	exec_instruction(char *inst, t_env *env)
 	return (ret);
 }
 
-// separate line by '|', '>', '>>', ...
-void		get_all_sep(char *line, t_env *env)
+// separate line by '>', '<', '>>', '<<', '&&', '||'
+void		get_sep_redirection(char *line, t_env *env)
 {
 	char	**instructions;
 	size_t	i;
 
+	printf("\nline redirection [%s]\n", line);
 	if (!(instructions = custom_split_sep(line)))
-	{
-		free(line);
 		return ;
-	}
-	free(line);
 	i = 0;
-//TODO pipe and redirection
+//TODO redirection
 	while (instructions[i])
 	{
-		// exec instruction if is not '|', '>', '>>', ...
+		printf("by >, ... [%s]\n", instructions[i]);
+		// exec instruction if is not '>', '<', '>>', '<<', '&&', '||'
 		if (!is_sep(instructions[i]))
 			env->ret = exec_instruction(instructions[i], env);
-		free(instructions[i]);
-		i++;
+		free(instructions[i++]);
+	}
+	free(instructions);
+}
+
+// separate line by '|'
+void		get_sep_pipe(char *line, t_env *env)
+{
+	char	**instructions;
+	size_t	i;
+
+	printf("\nline pipe [%s]\n", line);
+	if (!(instructions = custom_split_sep_pipe(line)))
+		return ;
+	i = 0;
+//TODO pipe
+	while (instructions[i])
+	{
+		printf("by | [%s]\n", instructions[i]);
+		// exec instruction if is not '|'
+		if (!is_sep_pipe(instructions[i]))
+			get_sep_redirection(instructions[i], env);
+		free(instructions[i++]);
 	}
 	free(instructions);
 }
@@ -107,6 +122,10 @@ void		get_all_instruction(char *line, t_env *env)
 	free(line);
 	i = 0;
 	while (instructions[i])
-		get_all_sep(instructions[i++], env);
+	{
+		printf("by ; [%s]\n", instructions[i]);
+		get_sep_pipe(instructions[i], env);
+		free(instructions[i++]);
+	}
 	free(instructions);
 }

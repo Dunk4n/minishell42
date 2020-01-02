@@ -44,5 +44,9 @@ size_t			pass_normal(char *line);
 size_t			is_sep(char *line);
 int				exec_bin(char **av, t_env *env);
 void			get_exec_path(char *path, char *name, t_env *env);
+char			**custom_split_sep_pipe(char *line);
+int				get_nb_sep_pipe(char *line);
+size_t			pass_normal_pipe(char *line);
+size_t			is_sep_pipe(char *line);
 
 #endif

@@ -12,17 +12,11 @@
 
 #include "minishell.h"
 
-size_t			is_sep(char *line)
+size_t			is_sep_pipe(char *line)
 {
-	if (!ft_strncmp(line, ">>", 2))
-		return (2);
 	if (!ft_strncmp(line, "||", 2))
-		return (2);
-	if (!ft_strncmp(line, "&&", 2))
-		return (2);
-	if (!ft_strncmp(line, ">", 1))
-		return (1);
-	if (!ft_strncmp(line, "<", 1))
+		return (0);
+	if (!ft_strncmp(line, "|", 1))
 		return (1);
 	return (0);
 }
@@ -43,12 +37,12 @@ static size_t	pass_dcote(char *line)
 	return (i);
 }
 
-size_t			pass_normal(char *line)
+size_t			pass_normal_pipe(char *line)
 {
 	size_t	i;
 
 	i = 0;
-	while (line[i] && !is_sep(line + i))
+	while (line[i] && !is_sep_pipe(line + i))
 	{
 		if (line[i] == '\\')
 			i += (line[i + 1]) ? 2 : 1;
@@ -65,28 +59,14 @@ size_t			pass_normal(char *line)
 		else
 		{
 			while (line[i] && line[i] != '\\' && line[i] != '\"' && line[i] !=
-'\'' && !is_sep(line + i))
+'\'' && !is_sep_pipe(line + i))
 				i++;
 		}
 	}
 	return (i);
 }
 
-int				is_only_space(char *line, size_t end)
-{
-	size_t	j;
-
-	j = 0;
-	while (j < end)
-	{
-		if (!in_str(line[j], " \t"))
-			return (0);
-		j++;
-	}
-	return (1);
-}
-
-int				get_nb_sep(char *line)
+int				get_nb_sep_pipe(char *line)
 {
 	size_t	nb;
 	size_t	i;
@@ -96,11 +76,11 @@ int				get_nb_sep(char *line)
 	i = 0;
 	while (line[i])
 	{
-		if ((tmp = is_sep(line + i)))
+		if ((tmp = is_sep_pipe(line + i)))
 			i += tmp;
 		else
 		{
-			tmp = pass_normal(line + i);
+			tmp = pass_normal_pipe(line + i);
 			if (is_only_space(line + i, tmp))
 			{
 				i += tmp;

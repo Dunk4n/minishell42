@@ -36,6 +36,8 @@ SRC_PATH	=	main.c					\
 				custom_split_arg.c		\
 				custom_split_sep.c		\
 				get_nb_sep.c			\
+				custom_split_sep_pipe.c	\
+				get_nb_sep_pipe.c		\
 				in_str.c				\
 				exec_bin.c				\
 				get_exec_path.c			\

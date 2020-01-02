@@ -16,9 +16,9 @@ static int	get_len_sep(char *line, size_t *index)
 {
 	size_t	nb;
 
-	if (!(nb = is_sep(line)))
+	if (!(nb = is_sep_pipe(line)))
 	{
-		nb = pass_normal(line);
+		nb = pass_normal_pipe(line);
 		if (is_only_space(line, nb))
 		{
 			*index += nb;
@@ -48,14 +48,14 @@ static char	*fill_in(char *line, size_t *index)
 	return (str);
 }
 
-char		**custom_split_sep(char *line)
+char		**custom_split_sep_pipe(char *line)
 {
 	size_t	i;
 	int		word;
 	int		nb;
 	char	**array;
 
-	nb = get_nb_sep(line);
+	nb = get_nb_sep_pipe(line);
 	if (!(array = malloc((nb + 1) * sizeof(char*))))
 		return (NULL);
 	i = 0;
