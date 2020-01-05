@@ -56,7 +56,7 @@ OBJ_BONUS	=	$(SRC_BONUS:%.c=$(BUILD_DIR)/%.o)
 
 CFLAGS	=	-I$(D_INC) -Wall -Wextra #-Werror
 
-LDFLAGS	=	-L./libft/ -lft
+LDFLAGS	=	-L./libft/ -lft -ltermcap
 
 all:	$(NAME)
 

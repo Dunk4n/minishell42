@@ -36,7 +36,7 @@ int			ft_cd(size_t ac, char **av, t_env *env)
 {
 	char	path[PATH_MAX + 1];
 
-	if (ac < 0 || ac > 1)
+	if (ac > 1)
 		return (0);
 	if (!get_home(ac, av, path, env))
 		return (0);

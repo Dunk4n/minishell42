@@ -39,7 +39,7 @@ int			ft_exit(size_t ac, char **av, t_env *env)
 	write(1, "exit\n", 5);
 	if (!env->env)
 		exit(0);
-	if (ac < 0 || ac > 2)
+	if (ac > 2)
 	{
 		write(1, "bash: exit: too many arguments\n", 31);
 		return (1);
