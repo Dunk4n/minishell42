@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 17:41:38 by niduches          #+#    #+#             */
-/*   Updated: 2020/01/05 09:40:43 by niduches         ###   ########.fr       */
+/*   Updated: 2020/01/05 10:33:34 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 const char	*g_builtins_name[] = {"echo", "cd", "pwd", "export", "unset", "env",
 	"exit", NULL};
 
-int			(*const g_builtins[])(size_t, char**, t_env*) = {ft_echo, NULL,
+int			(*const g_builtins[])(size_t, char**, t_env*) = {ft_echo, ft_cd,
 	ft_pwd, ft_export, ft_unset, ft_env, ft_exit};
 
 static int	is_builtins(char *name)
@@ -70,14 +70,14 @@ void		get_sep_redirection(char *line, t_env *env)
 	char	**instructions;
 	size_t	i;
 
-	printf("\nline redirection [%s]\n", line);
+	//printf("\nline redirection [%s]\n", line);
 	if (!(instructions = custom_split_sep(line)))
 		return ;
 	i = 0;
 //TODO redirection
 	while (instructions[i])
 	{
-		printf("by >, ... [%s]\n", instructions[i]);
+		//printf("by >, ... [%s]\n", instructions[i]);
 		// exec instruction if is not '>', '<', '>>', '<<', '&&', '||'
 		if (!is_sep(instructions[i]))
 			env->ret = exec_instruction(instructions[i], env);
@@ -92,14 +92,14 @@ void		get_sep_pipe(char *line, t_env *env)
 	char	**instructions;
 	size_t	i;
 
-	printf("\nline pipe [%s]\n", line);
+	//printf("\nline pipe [%s]\n", line);
 	if (!(instructions = custom_split_sep_pipe(line)))
 		return ;
 	i = 0;
 //TODO pipe
 	while (instructions[i])
 	{
-		printf("by | [%s]\n", instructions[i]);
+		//printf("by | [%s]\n", instructions[i]);
 		// exec instruction if is not '|'
 		if (!is_sep_pipe(instructions[i]))
 			get_sep_redirection(instructions[i], env);
@@ -123,7 +123,7 @@ void		get_all_instruction(char *line, t_env *env)
 	i = 0;
 	while (instructions[i])
 	{
-		printf("by ; [%s]\n", instructions[i]);
+		//printf("by ; [%s]\n", instructions[i]);
 		get_sep_pipe(instructions[i], env);
 		free(instructions[i++]);
 	}

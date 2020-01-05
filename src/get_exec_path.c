@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_exec_path.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/05 10:01:41 by niduches          #+#    #+#             */
+/*   Updated: 2020/01/05 10:12:52 by niduches         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -18,14 +29,19 @@ static int	is_direct_path(char *str)
 	return (1);
 }
 
-static void	get_total_path(char *total_name, char *name, t_env *env)
+static void	get_total_path(char *total_name, char *name, t_env *env,
+char *env_path)
 {
 	size_t	i;
 	char	*path;
 
 	if (name[0] == '~' && (name[1] == '/' || !name[1]))
 	{
-		ft_strcpy(total_name, "/home/dnicolas/");
+		while (*env_path && *env_path != '=')
+			env_path++;
+		if (*env_path)
+			env_path++;
+		ft_strcpy(total_name, env_path);
 		name++;
 	}
 	else
@@ -84,7 +100,11 @@ void		get_exec_path(char *path, char *name, t_env *env)
 	if (!is_direct_path(name))
 	{
 		if (*name != '/')
-			get_total_path(path, name, env);
+		{
+			if (!(env_path = (char*)get_env(env, "HOME")))
+				return ;
+			get_total_path(path, name, env, *((char**)env_path));
+		}
 		else
 			ft_strcpy(path, name);
 		if (!good_path(path))

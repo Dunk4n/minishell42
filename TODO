@@ -1,9 +1,9 @@
 • Show a prompt when waiting for a new command											|	done
 • Search and launch the right executable (based on the PATH variable or by using
 relative or absolute path) like in bash													|	done
-• It must implement the builtins like in bash:											|	N
+• It must implement the builtins like in bash:											|	done
  ◦ echo with option ’-n’																|	done
- ◦ cd without ’-’ option																|	
+ ◦ cd without ’-’ option																|	done
  ◦ pwd without any options																|	done
  ◦ export without any options															|	done
  ◦ unset without any options															|	done

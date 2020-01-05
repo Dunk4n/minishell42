@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/15 19:07:52 by niduches          #+#    #+#             */
-/*   Updated: 2019/12/19 17:45:42 by niduches         ###   ########.fr       */
+/*   Updated: 2020/01/05 10:30:28 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,6 @@ char			**custom_split_sep_pipe(char *line);
 int				get_nb_sep_pipe(char *line);
 size_t			pass_normal_pipe(char *line);
 size_t			is_sep_pipe(char *line);
+int				ft_cd(size_t ac, char **av, t_env *env);
 
 #endif

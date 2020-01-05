@@ -6,7 +6,7 @@
 #    By: niduches <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/15 19:02:16 by niduches          #+#    #+#              #
-#    Updated: 2020/01/05 08:52:31 by niduches         ###   ########.fr        #
+#    Updated: 2020/01/05 10:30:42 by niduches         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,7 @@ SRC_PATH	=	main.c					\
 				in_str.c				\
 				exec_bin.c				\
 				get_exec_path.c			\
+				cd.c					\
 
 SRC = $(addprefix $(D_SRC),$(SRC_PATH))
 
