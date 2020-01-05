@@ -6,7 +6,7 @@
 #    By: niduches <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/08 14:45:08 by niduches          #+#    #+#              #
-#    Updated: 2019/12/17 13:14:03 by niduches         ###   ########.fr        #
+#    Updated: 2020/01/05 09:13:45 by niduches         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,6 +55,26 @@ SRC		=	ft_atoi.c					\
 			ft_strcpy.c					\
 			ft_strncpy.c				\
 			get_next_line.c				\
+			printf/ft_printf.c				\
+			printf/conv_char.c				\
+			printf/conv_hex.c				\
+			printf/conv_int.c				\
+			printf/conv_ptr.c				\
+			printf/conv_str.c				\
+			printf/conv_uhex.c				\
+			printf/conv_uint.c				\
+			printf/conv_nb_print_char.c	\
+			printf/conv_float.c			\
+			printf/conv_sct.c				\
+			printf/conv_g.c				\
+			printf/ft_get_flags.c			\
+			printf/ft_isconv.c				\
+			printf/ft_isflag.c				\
+			printf/ft_makeconv.c			\
+			printf/ft_putnstr.c			\
+			printf/ft_put_long_nbr.c		\
+			printf/conv_g_float.c			\
+			printf/float_round.c			\
 
 LIB_DIR	=	printf						\
 
@@ -62,12 +82,11 @@ LIB		=	printf/printf.a				\
 
 OBJ		=	$(SRC:%.c=%.o)
 
-CFLAGS	+=	-g -Wall -Wextra #-Werror
+CFLAGS	+=	-I./ -Wall -Wextra #-Werror
 
 NAME	=	libft.a
 
 all:	$(NAME)
-	make -C $(LIB_DIR)
 
 clean:
 	make -C $(LIB_DIR) clean
@@ -79,8 +98,8 @@ fclean: clean
 	rm -f $(NAME)
 
 $(NAME): $(OBJ)
-	make -C $(LIB_DIR)
-	@ar rcT $(NAME) $(OBJ) $(LIB)
+#	make -C $(LIB_DIR)
+	ar rc $(NAME) $(OBJ) # $(LIB)
 
 re:	fclean $(NAME)
 

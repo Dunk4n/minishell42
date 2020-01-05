@@ -6,7 +6,7 @@
 #    By: niduches <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/15 19:02:16 by niduches          #+#    #+#              #
-#    Updated: 2019/12/19 17:44:42 by niduches         ###   ########.fr        #
+#    Updated: 2020/01/05 08:52:31 by niduches         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,7 +53,7 @@ NAME	=	minishell
 OBJ			=	$(SRC:%.c=$(BUILD_DIR)/%.o)
 OBJ_BONUS	=	$(SRC_BONUS:%.c=$(BUILD_DIR)/%.o)
 
-CFLAGS	=	-g -I$(D_INC) -Wall -Wextra #-Werror
+CFLAGS	=	-I$(D_INC) -Wall -Wextra #-Werror
 
 LDFLAGS	=	-L./libft/ -lft
 
