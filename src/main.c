@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/15 19:07:13 by niduches          #+#    #+#             */
-/*   Updated: 2019/12/18 22:29:31 by niduches         ###   ########.fr       */
+/*   Updated: 2020/01/05 11:41:07 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,11 @@ int		main(int ac, char **av, char **arg_env)
 		if (!get_next_line(0, &line) && (!line || !line[0]))
 		{
 			free(line);
-			ft_exit(0, (void*)1, &env);
+			ft_exit(0, NULL, &env);
 		}
 		if (!(line = to_line_env(line, &env)))
-			ft_exit(0, NULL, &env);
+			free_env(&env);
 		get_all_instruction(line, &env);
 	}
-	return (0);
+	return (env.ret);
 }

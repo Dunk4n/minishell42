@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/05 09:45:26 by niduches          #+#    #+#             */
-/*   Updated: 2020/01/05 10:37:29 by niduches         ###   ########.fr       */
+/*   Updated: 2020/01/05 11:26:45 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,10 @@ int			ft_cd(size_t ac, char **av, t_env *env)
 		ft_strcat(path, av[0] + ((av[0][0] == '~' && (av[0][1] == '/' ||
 !av[0][1])) ? 1 : 0));
 	}
-	printf("path: [%s]\n", path);
 	if (chdir((const char*)path) == -1)
 	{
 		ft_printf("cd: no such file or directory: %s\n", av[0]);
+		return (1);
 	}
 	return (0);
 }

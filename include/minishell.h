@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/15 19:07:52 by niduches          #+#    #+#             */
-/*   Updated: 2020/01/05 10:30:28 by niduches         ###   ########.fr       */
+/*   Updated: 2020/01/05 11:40:00 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ typedef struct	s_env
 {
 	char	**env;
 	size_t	nb_env;
-	int		ret;
+	char	ret;
 }				t_env;
 
 t_env			init(char **arg_env);
@@ -49,5 +49,6 @@ int				get_nb_sep_pipe(char *line);
 size_t			pass_normal_pipe(char *line);
 size_t			is_sep_pipe(char *line);
 int				ft_cd(size_t ac, char **av, t_env *env);
+void			free_env(t_env *env);
 
 #endif
