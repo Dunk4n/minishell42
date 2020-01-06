@@ -3,16 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: cal-hawa <cal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/15 19:07:13 by niduches          #+#    #+#             */
-/*   Updated: 2020/01/05 11:41:07 by niduches         ###   ########.fr       */
+/*   Updated: 2020/01/06 08:56:21 by cal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdio.h>
+#include <signal.h>
 #include "minishell.h"
+
+void	sig_handler(int signal)
+{
+	if (signal == SIGINT)
+		write(1, "\n$> ", 4);
+	else if (signal == SIGQUIT)
+		return ;
+}
 
 int		main(int ac, char **av, char **arg_env)
 {
@@ -22,6 +31,9 @@ int		main(int ac, char **av, char **arg_env)
 	if (ac != 1)
 		return (0);
 	(void)av;
+	if (signal(SIGINT, &sig_handler) == SIG_ERR || \
+		signal(SIGQUIT, &sig_handler) == SIG_ERR)
+		return (1);
 	if (!((env = init(arg_env)).env))
 		return (1);
 	while (1)
