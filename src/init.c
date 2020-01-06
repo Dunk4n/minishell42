@@ -10,16 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
 #include "minishell.h"
 
-static void	free_tab(char **tab, size_t indice)
+static void	free_tab(char **tabl, size_t indice)
 {
 	if (indice > 0)
 	{
 		while (--indice > 0)
-			free(tab[indice]);
+			free(tabl[indice]);
 	}
-	free(tab);
+	free(tabl);
 }
 
 static char	**copy_env(char **arg_env, size_t *nb_env)
@@ -47,6 +48,26 @@ static char	**copy_env(char **arg_env, size_t *nb_env)
 	return (env);
 }
 
+static int	init_term(t_env *env)
+{
+	char	*term_name;
+
+	if (!(term_name = (char*)get_env(env, "TERM")))
+		return (0);
+	term_name = *((char**)term_name);
+	while (*term_name && *term_name != '=')
+		term_name++;
+	if (*term_name)
+		term_name++;
+	if (tgetent(NULL, term_name) < 1)
+		return (0);
+	tcgetattr(STDIN_FILENO, &(env->termios_save));
+	tcgetattr(STDIN_FILENO, &(env->termios));
+	env->termios.c_lflag &= ~(ICANON | ECHO);
+	tcsetattr(STDIN_FILENO, TCSADRAIN, &(env->termios));
+	return (1);
+}
+
 t_env		init(char **arg_env)
 {
 	t_env	env;
@@ -56,5 +77,10 @@ t_env		init(char **arg_env)
 	env.nb_env = 0;
 	if (!(env.env = copy_env(arg_env, &env.nb_env)))
 		return (env);
+	if (!init_term(&env))
+	{
+		free_env(&env);
+		return (env);
+	}
 	return (env);
 }

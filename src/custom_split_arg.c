@@ -40,75 +40,75 @@ s[i] == '\\') && s[i + 1]) ? 2 : 1;
 	return (nb);
 }
 
-static int	get_len_arg_no(char const *s, char *in, int *tab)
+static int	get_len_arg_no(char const *s, char *in, int *tabl)
 {
 	int		nb;
 
 	nb = 0;
-	tab[1] = 0;
-	while (s[tab[1]] && (!in_str(s[tab[1]], " \t") || *((short*)in)))
+	tabl[1] = 0;
+	while (s[tabl[1]] && (!in_str(s[tabl[1]], " \t") || *((short*)in)))
 	{
-		if (!in[1] && s[tab[1]] == '\"')
+		if (!in[1] && s[tabl[1]] == '\"')
 			in[0] = (in[0] == 0) ? 1 : 0;
-		else if (s[tab[1]] == '\'' && !in[0])
+		else if (s[tabl[1]] == '\'' && !in[0])
 			in[1] = (in[1] == 0) ? 1 : 0;
-		else if (s[tab[1]] != '\\' || (*tab + tab[1] != 0 && s[tab[1] - 1] ==
-'\\'))
+		else if (s[tabl[1]] != '\\' || (*tabl + tabl[1] != 0 && s[tabl[1] - 1]
+					== '\\'))
 			nb++;
-		if ((!in[1] || (in[0] && (s[tab[1] + 1] == '\\' || s[tab[1] + 1] ==
-'\"'))) && s[tab[1]] == '\\')
+		if ((!in[1] || (in[0] && (s[tabl[1] + 1] == '\\' || s[tabl[1] + 1] ==
+'\"'))) && s[tabl[1]] == '\\')
 		{
-			if (s[tab[1] + 1])
-				tab[1]++;
+			if (s[tabl[1] + 1])
+				tabl[1]++;
 		}
-		tab[1]++;
+		tabl[1]++;
 	}
-	tab[1] = 0;
-	tab[2] = 0;
+	tabl[1] = 0;
+	tabl[2] = 0;
 	*((short*)in) = 0;
 	return (nb);
 }
 
-static void	put_in_line_no(char *s, char *in, char *line, int *tab)
+static void	put_in_line_no(char *s, char *in, char *line, int *tabl)
 {
-	if (!in[1] && s[tab[1]] == '\"')
+	if (!in[1] && s[tabl[1]] == '\"')
 		in[0] = (in[0] == 0) ? 1 : 0;
-	else if (s[tab[1]] == '\'' && !in[0])
+	else if (s[tabl[1]] == '\'' && !in[0])
 		in[1] = (in[1] == 0) ? 1 : 0;
-	else if ((!*((short*)in) || (in[0] && s[tab[1] + 1] == '\"')) &&
-s[tab[1]] == '\\')
+	else if ((!*((short*)in) || (in[0] && s[tabl[1] + 1] == '\"')) &&
+s[tabl[1]] == '\\')
 	{
-		if (s[tab[1] + 1])
-			line[tab[2]++] = s[tab[1] + 1];
+		if (s[tabl[1] + 1])
+			line[tabl[2]++] = s[tabl[1] + 1];
 	}
 	else
-		line[tab[2]++] = s[tab[1]];
-	if ((!in[1] || (in[0] && (s[tab[1] + 1] == '\\' || s[tab[1] + 1] ==
-'\"'))) && s[tab[1]] == '\\')
+		line[tabl[2]++] = s[tabl[1]];
+	if ((!in[1] || (in[0] && (s[tabl[1] + 1] == '\\' || s[tabl[1] + 1] ==
+'\"'))) && s[tabl[1]] == '\\')
 	{
-		if (s[tab[1] + 1])
-			tab[1]++;
+		if (s[tabl[1] + 1])
+			tabl[1]++;
 	}
-	tab[1]++;
+	tabl[1]++;
 }
 
 static char	*fill_in_no(char *s, int *i, char *in)
 {
-	int		tab[3];
+	int		tabl[3];
 	char	*line;
 
 	while (in_str(s[*i], " \t"))
 		(*i)++;
 	s += *i;
-	tab[0] = *i;
-	if (!(line = malloc((get_len_arg_no(s, in, tab) + 1) * sizeof(char))))
+	tabl[0] = *i;
+	if (!(line = malloc((get_len_arg_no(s, in, tabl) + 1) * sizeof(char))))
 		return (NULL);
-	while (s[tab[1]] && (!in_str(s[tab[1]], " \t") || *((short*)in)))
+	while (s[tabl[1]] && (!in_str(s[tabl[1]], " \t") || *((short*)in)))
 	{
-		put_in_line_no(s, in, line, tab);
+		put_in_line_no(s, in, line, tabl);
 	}
-	line[tab[2]] = '\0';
-	*i += tab[1];
+	line[tabl[2]] = '\0';
+	*i += tabl[1];
 	return (line);
 }
 

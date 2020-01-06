@@ -20,8 +20,8 @@ relative or absolute path) like in bash													|	done
 BONUS:
 • Redirection “<<” like in bash
 • History and line editing with Termcaps (man tgetent for examples)
- ◦ Edit the line where the cursor is located.
- ◦ Move the cursor left and right to be able to edit the line at a specific location.
+ ◦ Edit the line where the cursor is located.											|	done
+ ◦ Move the cursor left and right to be able to edit the line at a specific location.	|	done
 Obviously new characters have to be inserted between the existing ones
 similarly to a classic shell.
  ◦ Use up and down arrows to navigate through the command history which we

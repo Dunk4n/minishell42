@@ -13,14 +13,32 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+#include <curses.h>
+#include <term.h>
 # include "../libft/libft.h"
 
 typedef struct	s_env
 {
-	char	**env;
-	size_t	nb_env;
-	char	ret;
+	char			**env;
+	size_t			nb_env;
+	char			ret;
+	struct termios	termios;
+	struct termios	termios_save;
 }				t_env;
+
+typedef struct	s_cursor
+{
+	int	startx;
+	int	starty;
+	int	x;
+	int	y;
+	int	idx;
+	int	col;
+	int	line;
+	int	line_size;
+	int	term_col;
+	int	term_line;
+}				t_cursor;
 
 t_env			init(char **arg_env);
 int				ft_exit(size_t ac, char **av, t_env *env);
@@ -50,5 +68,15 @@ size_t			pass_normal_pipe(char *line);
 size_t			is_sep_pipe(char *line);
 int				ft_cd(size_t ac, char **av, t_env *env);
 void			free_env(t_env *env);
+
+//cursor
+void			get_cursor_position(int *col, int *row);
+void			move_cursor(int col, int row);
+void			cursor_exec(char *cmd);
+void			cursor_exec_at(char *cmd, int x, int y);
+
+int				get_edit_line(t_env *env, char **line);
+
+# define LINE_SIZE 4096
 
 #endif
