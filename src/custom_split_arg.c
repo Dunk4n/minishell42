@@ -27,9 +27,9 @@ static int	get_nb(char const *s, char *in)
 			in[0] = (in[0] == 0) ? 1 : 0;
 		if ((s[i] == '\'') && !in[0])
 			in[1] = (in[1] == 0) ? 1 : 0;
-		if (in_str(s[i], " \t") && !*((short*)in) && !sep)
+		if (in_str(s[i], " \t\n") && !*((short*)in) && !sep)
 			sep = 1;
-		if (!in_str(s[i], " \t") && sep == 1)
+		if (!in_str(s[i], " \t\n") && sep == 1)
 		{
 			sep = 0;
 			nb++;
@@ -46,7 +46,7 @@ static int	get_len_arg_no(char const *s, char *in, int *tabl)
 
 	nb = 0;
 	tabl[1] = 0;
-	while (s[tabl[1]] && (!in_str(s[tabl[1]], " \t") || *((short*)in)))
+	while (s[tabl[1]] && (!in_str(s[tabl[1]], " \t\n") || *((short*)in)))
 	{
 		if (!in[1] && s[tabl[1]] == '\"')
 			in[0] = (in[0] == 0) ? 1 : 0;
@@ -97,16 +97,14 @@ static char	*fill_in_no(char *s, int *i, char *in)
 	int		tabl[3];
 	char	*line;
 
-	while (in_str(s[*i], " \t"))
+	while (in_str(s[*i], " \t\n"))
 		(*i)++;
 	s += *i;
 	tabl[0] = *i;
 	if (!(line = malloc((get_len_arg_no(s, in, tabl) + 1) * sizeof(char))))
 		return (NULL);
-	while (s[tabl[1]] && (!in_str(s[tabl[1]], " \t") || *((short*)in)))
-	{
+	while (s[tabl[1]] && (!in_str(s[tabl[1]], " \t\n") || *((short*)in)))
 		put_in_line_no(s, in, line, tabl);
-	}
 	line[tabl[2]] = '\0';
 	*i += tabl[1];
 	return (line);

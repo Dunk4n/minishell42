@@ -10,19 +10,26 @@ void	get_cursor_position(int *col, int *row)
     char	buff[16];
 	char	*term;
     size_t	i;
+	ssize_t	size;
+	int		nb;
 
-	term = tgetstr("u7", NULL);
-	write(1, term, ft_strlen(term));
-    read(1, buff, 16);
-	*col = 0;
+	*col = -1;
 	*row = 0;
-	i = 2;
-	*row = ft_atoi(&buff[i]) - 1;
-	while (buff[i] >= '0' && buff[i] <= '9')
-		i++;
-	if (buff[i])
-		i++;
-	*col = ft_atoi(&buff[i]) - 1;
+	nb = 0;
+	while (nb < 20 && (*col < 0 || *row < 0))
+	{
+		term = tgetstr("u7", NULL);
+		write(1, term, ft_strlen(term));
+		if ((size = read(0, buff, 16)) < 0)
+			size = 0;
+		buff[size] = '\0';
+		i = 2;
+		*row = ft_atoi(&buff[i]) - 1;
+		while (buff[i] >= '0' && buff[i] <= '9')
+			i++;
+		*col = ft_atoi(&buff[i + 1]) - 1;
+		nb++;
+	}
 }
 
 void	move_cursor(int col, int row)

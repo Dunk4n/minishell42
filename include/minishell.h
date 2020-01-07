@@ -13,9 +13,11 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-#include <curses.h>
-#include <term.h>
+# include <curses.h>
+# include <term.h>
 # include "../libft/libft.h"
+
+# define LINE_SIZE 4096
 
 typedef struct	s_env
 {
@@ -24,6 +26,10 @@ typedef struct	s_env
 	char			ret;
 	struct termios	termios;
 	struct termios	termios_save;
+	char			*hist[500];
+	char			tmp[LINE_SIZE];
+	int				size;
+	int				idx;
 }				t_env;
 
 typedef struct	s_cursor
@@ -77,7 +83,5 @@ void			cursor_exec(char *cmd);
 void			cursor_exec_at(char *cmd, int x, int y);
 
 int				get_edit_line(t_env *env, char **line);
-
-# define LINE_SIZE 4096
 
 #endif

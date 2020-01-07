@@ -24,13 +24,20 @@ static int	ft_is_number(char *str)
 
 void		free_env(t_env *env)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
 	while (env->env[i])
 		free(env->env[i++]);
 	free(env->env);
 	env->env = NULL;
+	i = 0;
+	while (i < env->size)
+	{
+		free(env->hist[i]);
+		env->hist[i] = NULL;
+	}
+	env->size = 0;
 }
 
 int			ft_exit(size_t ac, char **av, t_env *env)

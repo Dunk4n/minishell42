@@ -71,6 +71,7 @@ static int	init_term(t_env *env)
 t_env		init(char **arg_env)
 {
 	t_env	env;
+	size_t	i;
 
 	env.env = NULL;
 	env.ret = 0;
@@ -82,5 +83,11 @@ t_env		init(char **arg_env)
 		free_env(&env);
 		return (env);
 	}
+	env.size = 0;
+	env.idx = 0;
+	ft_bzero(env.tmp, LINE_SIZE);
+	i = 0;
+	while (i < 500)
+		env.hist[i++] = NULL;
 	return (env);
 }

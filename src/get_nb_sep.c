@@ -79,7 +79,7 @@ int				is_only_space(char *line, size_t end)
 	j = 0;
 	while (j < end)
 	{
-		if (!in_str(line[j], " \t"))
+		if (!in_str(line[j], " \t\n"))
 			return (0);
 		j++;
 	}

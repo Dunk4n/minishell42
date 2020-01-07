@@ -12,6 +12,7 @@
 
 #include <unistd.h>
 #include <stdio.h>
+#include <limits.h>
 #include "minishell.h"
 
 int		main(int ac, char **av, char **arg_env)
@@ -28,12 +29,14 @@ int		main(int ac, char **av, char **arg_env)
 	{
 		if (!get_edit_line(&env, &line) || !line)
 		{
+			printf("AAA %p\n", line);
 			free(line);
 			ft_exit(0, NULL, &env);
 		}
 		if (!(line = to_line_env(line, &env)))
 			free_env(&env);
 		get_all_instruction(line, &env);
+		free(line);
 	}
 	return (env.ret);
 

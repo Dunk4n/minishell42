@@ -115,11 +115,7 @@ void		get_all_instruction(char *line, t_env *env)
 	size_t	i;
 
 	if (!(instructions = custom_split_instr(line)))
-	{
-		free(line);
 		return ;
-	}
-	free(line);
 	i = 0;
 	while (instructions[i])
 	{

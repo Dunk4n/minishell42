@@ -31,6 +31,6 @@ will then be able to edit if we feel like it (the line, not the history).				|	N
  ◦ Go directly to the beginning or the end of a line by pressing home and end.			|	done
  ◦ Write AND edit a command over a few lines. In that case, we would love that
 ctrl+UP and ctrl+DOWN allow to go from one line to another in the command
-while remaining in the same column or otherwise the most appropriate column.			|	N
+while remaining in the same column or otherwise the most appropriate column.			|	done
 • &&, || with parenthesis for priorities, like in bash									|
 • wilcard * like in bash																|	N
