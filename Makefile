@@ -42,8 +42,8 @@ SRC_PATH	=	main.c					\
 				exec_bin.c				\
 				get_exec_path.c			\
 				cd.c					\
-				cursor_utils.c			\
-				get_edit_line.c			\
+				cursor_utils_bonus.c	\
+				get_edit_line_bonus.c	\
 
 SRC = $(addprefix $(D_SRC),$(SRC_PATH))
 

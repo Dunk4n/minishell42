@@ -28,16 +28,17 @@ typedef struct	s_env
 
 typedef struct	s_cursor
 {
-	int	startx;
-	int	starty;
-	int	x;
-	int	y;
-	int	idx;
-	int	col;
-	int	line;
-	int	line_size;
-	int	term_col;
-	int	term_line;
+	int		startx;
+	int		starty;
+	int		x;
+	int		y;
+	int		idx;
+	int		col;
+	int		line;
+	int		line_max;
+	int		line_size;
+	int		term_col;
+	int		term_line;
 }				t_cursor;
 
 t_env			init(char **arg_env);

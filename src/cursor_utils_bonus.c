@@ -41,7 +41,8 @@ void	cursor_exec(char *cmd)
 {
 	char	*tmp;
 
-	tmp = tgetstr(cmd, NULL);
+	if (!(tmp = tgetstr(cmd, NULL)))
+		return ;
 	write(1, tmp, ft_strlen(tmp));
 }
 
