@@ -10,11 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "execute.h"
 #include <unistd.h>
 #include <fcntl.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include "execute.h"
 
 static char		*set_filename(char *file, int *oflag)
 {
@@ -40,7 +40,8 @@ static char		*set_filename(char *file, int *oflag)
 	if (redir == '<')
 		*oflag = O_RDONLY;
 	else
-		*oflag = (i == 1) ? O_WRONLY | O_CREAT : O_WRONLY | O_CREAT | O_APPEND;
+		*oflag = (ft_strncmp(file, ">>", 2)) ? O_WRONLY | O_CREAT | O_TRUNC :
+O_WRONLY | O_CREAT | O_APPEND;
 	return (file_name);
 }
 
@@ -48,7 +49,7 @@ static int		redirect_output(char *file_name, int oflag)
 {
 	int			fd;
 
-	if ((fd = open(file_name, oflag, 0777)) < 0)
+	if ((fd = open(file_name, oflag, 0664)) < 0)
 		return (-1);
 	if (dup2(fd, 1) < 0)
 		return (-1);
@@ -80,8 +81,8 @@ int				set_redirections(char **redirs)
 	while (redirs[i + 1])
 	{
 		file_name = set_filename(redirs[i], &oflag);
-		if ((fd = open(file_name, oflag)) < 0)
-		return (-1);
+		if ((fd = open(file_name, oflag, 0664)) < 0)
+			return (-1);
 		i++;
 	}
 	file_name = set_filename(redirs[i], &oflag);
