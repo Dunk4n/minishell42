@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include <unistd.h>
-#include "minishell.h"
+#include "minishell_bonus.h"
 
 static int	ft_is_number(char *str)
 {
@@ -24,12 +24,20 @@ static int	ft_is_number(char *str)
 
 void		free_env(t_env *env)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
 	while (env->env[i])
 		free(env->env[i++]);
 	free(env->env);
+	env->env = NULL;
+	i = 0;
+	while (i < env->size)
+	{
+		free(env->hist[i]);
+		env->hist[i] = NULL;
+	}
+	env->size = 0;
 }
 
 int			ft_exit(size_t ac, char **av, t_env *env)
@@ -38,7 +46,10 @@ int			ft_exit(size_t ac, char **av, t_env *env)
 
 	write(1, "exit\n", 5);
 	if (!env->env)
+	{
+		tcsetattr(STDIN_FILENO, TCSADRAIN, &(env->termios_save));
 		exit(0);
+	}
 	if (ac > 2)
 	{
 		write(1, "bash: exit: too many arguments\n", 31);
@@ -53,5 +64,6 @@ int			ft_exit(size_t ac, char **av, t_env *env)
 	if (av && *av)
 		ret = ft_atoi(*av);
 	free_env(env);
+	tcsetattr(STDIN_FILENO, TCSADRAIN, &(env->termios_save));
 	exit(ret);
 }

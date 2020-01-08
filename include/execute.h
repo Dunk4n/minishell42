@@ -16,6 +16,8 @@
 # define MAX_ARGS	32
 # define MAX_REDIRS	16
 
+# include "minishell.h"
+
 /*
 ** === Not implemented ===
 ** +) finding executable path
@@ -29,8 +31,8 @@ char			**g_envp;
 /*
 ** Execute
 */
-int					execute_pipeline(char **commands);
-int					execute_standalone(char *command);
+int					execute_pipeline(char **commands, t_env *env);
+int					execute_standalone(char *command, t_env *env);
 
 /*
 ** Parse
@@ -46,12 +48,12 @@ int				split_args(char *str, char **args, int nargs);
 /*
 ** Pipeline
 */
-int				mpipeline(char **args, char **redirs, int last);
+int				mpipeline(char **args, char **redirs, int last, t_env *env);
 
 /*
 ** Standalone
 */
-int				standalone(char **arguments, char **redirections);
+int				standalone(char **arguments, char **redirections, t_env *env);
 
 /*
 ** Redirections
