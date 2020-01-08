@@ -38,6 +38,7 @@ int		main(int ac, char **av, char **arg_env)
 		return (1);
 	while (1)
 	{
+		line = NULL;
 		if (!get_edit_line(&env, &line) || !line)
 		{
 			free(line);
