@@ -6,7 +6,7 @@
 /*   By: cal-hawa <cal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 11:20:40 by cal-hawa          #+#    #+#             */
-/*   Updated: 2020/01/05 12:41:44 by cal-hawa         ###   ########.fr       */
+/*   Updated: 2020/01/08 14:59:10 by cal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static char		*set_filename(char *file, int *oflag)
 			i++;
 		file[i] = '\0';
 	}
-	if (redir == '>')
+	if (redir == '<')
 		*oflag = O_RDONLY;
 	else
 		*oflag = (i == 1) ? O_WRONLY | O_CREAT : O_WRONLY | O_CREAT | O_APPEND;
