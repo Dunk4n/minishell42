@@ -110,7 +110,7 @@ static int	make_term_command(char *line, char *buff, t_cursor *cur)
 {
 	int	i;
 
-	if (!ft_strcmp(buff, "\n"))
+	if (!ft_strcmp(buff, "\n") || (*buff == 4 && !cur->line_size))
 		return (0);
 	if (*buff == 127 && !buff[1] && cur->idx > 0 && line[cur->idx - 1])
 	{
@@ -286,11 +286,14 @@ cur.x, cur.y, cur.col, cur.line, cur.term_col, cur.term_line, cur.startx, cur.st
 			add_char_in_line(line, buff, &cur);
 		else if (!make_term_command(line, buff, &cur))
 		{
-			display_all_command_line(&cur, line);
-			if (cur.y == cur.term_line - 1)
-				write(1, "\n", 1);
+			if (*buff != 4)
+			{
+				display_all_command_line(&cur, line);
+				if (cur.y == cur.term_line - 1)
+					write(1, "\n", 1);
+			}
 			*new_line = get_good_line(&cur, line);
-			return (1);
+			return ((*buff == 4) ? 0 : 1);
 		}
 		display_all_command_line(&cur, line);
 		move_cursor(cur.x, cur.y);

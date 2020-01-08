@@ -29,7 +29,6 @@ int		main(int ac, char **av, char **arg_env)
 	{
 		if (!get_edit_line(&env, &line) || !line)
 		{
-			printf("AAA %p\n", line);
 			free(line);
 			ft_exit(0, NULL, &env);
 		}
