@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cal-hawa <cal-hawa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/15 19:07:13 by niduches          #+#    #+#             */
 /*   Updated: 2020/01/06 13:12:51 by niduches         ###   ########.fr       */
@@ -12,9 +12,8 @@
 
 #include <unistd.h>
 #include <stdio.h>
-#include <limits.h>
 #include <signal.h>
-#include "minishell.h"
+#include "minishell_bonus.h"
 
 void	sig_handler(int signal)
 {
