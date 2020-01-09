@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: niduches <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: cal-hawa <cal-hawa@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/15 19:02:16 by niduches          #+#    #+#              #
-#    Updated: 2020/01/09 13:33:58 by niduches         ###   ########.fr        #
+#    Updated: 2020/01/09 15:07:11 by niduches         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,6 +52,8 @@ CAL_PATH	=	exec_command.c				\
 				exec_redirections.c			\
 				parse_command.c				\
 				parse_split_redirections.c	\
+				built_in.c					\
+				execve_wrapper.c
 
 SRC = $(addprefix $(D_SRC),$(SRC_PATH))
 CAL = $(addprefix ./cal-hawa/,$(CAL_PATH))
@@ -93,7 +95,7 @@ NAME	=	minishell
 OBJ			=	$(SRC:%.c=$(BUILD_DIR)/%.o)
 OBJ_BONUS	=	$(SRC_BONUS:%.c=$(BUILD_DIR)/%.o)
 
-CFLAGS	=	-g -fsanitize=address -I$(D_INC) -Wall -Wextra #-Werror
+CFLAGS	=	-I$(D_INC) -Wall -Wextra #-Werror
 
 LDFLAGS	=	-L./libft/ -lft -ltermcap
 
