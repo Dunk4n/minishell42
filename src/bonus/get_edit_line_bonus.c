@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_edit_line_bonus.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/09 13:22:43 by niduches          #+#    #+#             */
+/*   Updated: 2020/01/09 14:49:42 by niduches         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdio.h>
@@ -52,6 +63,7 @@ static char	*parse_command(char *line, char *buff, t_cursor *cur, t_env *env)
 	tmp = buff;
 	while (*buff)
 	{
+		i = 0;
 		if (!is_term_command(buff, cur, line))
 			add_char_in_line(line, buff++, cur);
 		else if (!(i = make_term_command(line, buff, cur, env)))
@@ -62,7 +74,7 @@ static char	*parse_command(char *line, char *buff, t_cursor *cur, t_env *env)
 				if (cur->y == cur->term_line - 1)
 					write(1, "\n", 1);
 			}
-			if (*buff == 4)
+			else
 				return (NULL);
 			return (get_good_line(cur, line));
 		}
@@ -79,15 +91,24 @@ int			get_edit_line(t_env *env, char **new_line)
 	char		buff[128];
 	ssize_t		size;
 
-	init_cursor(&cur);
+	init_cursor(&cur, 0);
 	if (cur.startx < 0 || cur.starty < 0)
 		return (0);
 	write(1, "$> ", 3);
 	ft_bzero(line, LINE_SIZE);
 	while (1)
 	{
+		move_cursor(0, 0);
+		printf("[%d, %d], [%d, %d] %d                                 \n", cur.x, cur.y, cur.col, cur.line, cur.idx);
+		move_cursor(cur.x, cur.y);
 		if ((size = read(STDIN_FILENO, buff, 127)) <= 0)
 			return (0);
+		if (g_exit)
+		{
+			init_cursor(&cur, 3);
+			ft_bzero(line, LINE_SIZE);
+			g_exit = 0;
+		}
 		buff[size] = '\0';
 		if (size > 0)
 		{
@@ -98,5 +119,5 @@ int			get_edit_line(t_env *env, char **new_line)
 		display_all_command_line(&cur, line);
 		move_cursor(cur.x, cur.y);
 	}
-	return (1);
+	return (0);
 }

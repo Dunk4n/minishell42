@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 17:41:38 by niduches          #+#    #+#             */
-/*   Updated: 2020/01/05 11:34:37 by niduches         ###   ########.fr       */
+/*   Updated: 2020/01/09 13:20:26 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,8 @@ void		get_all_instruction(char *line, t_env *env)
 	char	**instructions;
 	size_t	i;
 
+	if (!line)
+		return ;
 	if (!(instructions = custom_split_instr(line)))
 		return ;
 	i = 0;

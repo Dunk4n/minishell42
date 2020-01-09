@@ -20,7 +20,7 @@ void	get_cursor_position(int *col, int *row)
 	{
 		term = tgetstr("u7", NULL);
 		write(1, term, ft_strlen(term));
-		if ((size = read(0, buff, 16)) < 0)
+		if ((size = read(0, buff, 15)) < 0)
 			size = 0;
 		buff[size] = '\0';
 		i = 2;

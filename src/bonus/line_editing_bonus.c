@@ -16,10 +16,10 @@ static int	is_newline_command(char *line, int idx)
 	i = 0;
 	while (i < idx)
 	{
-		if (line[i] == '\"' && !((char*)(&acc))[1] && (i > 0 || line[i - 1] !=
+		if (line[i] == '\"' && !((char*)(&acc))[1] && (i == 0 || line[i - 1] !=
 '\\'))
 			((char*)(&acc))[0] = (((char*)(&acc))[0] + 1) % 2;
-		else if (line[i] == '\'' && !((char*)(&acc))[0] && (i > 0 ||
+		else if (line[i] == '\'' && !((char*)(&acc))[0] && (i == 0 ||
 (line[i - 1] != '\\' && !((char*)(&acc))[1])))
 			((char*)(&acc))[1] = (((char*)(&acc))[1] + 1) % 2;
 		i++;
@@ -55,17 +55,18 @@ void		update_cursor_pos(t_cursor *cur)
 	cur->y = cur->starty + ((cur->line_size - (cur->col + ((!cur->line) ?
 cur->startx : 0)) - cur->line) / cur->term_col) + cur->line +
 (cur->col + ((!cur->line) ? cur->startx + 3 : 0)) / cur->term_col;
-	if (cur->y >= cur->term_line)
+	if (cur->y > cur->term_line)
 	{
-		cur->starty -= cur->y - (cur->term_line - 1);
+		cur->starty -= cur->y - (cur->term_line);
 		cur->y = cur->term_line - 1;
 	}
 	cur->x = (cur->col + ((!cur->line) ? cur->startx + 3 : 0)) % cur->term_col;
 }
 
-void		init_cursor(t_cursor *cur)
+void		init_cursor(t_cursor *cur, int nb_cur)
 {
 	get_cursor_position(&cur->startx, &cur->starty);
+	cur->startx -= nb_cur;
 	cur->x = cur->startx;
 	cur->y = cur->starty;
 	cur->idx = 0;
@@ -96,5 +97,8 @@ cur->idx);
 	i = (i + cur->col + (!cur->line ? cur->startx + 3 : 0)) %
 		cur->term_col;
 	if (!i)
+	{
 		write(1, "\n", 1);
+		cur->starty--;
+	}
 }
