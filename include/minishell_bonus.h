@@ -92,6 +92,6 @@ void			update_cursor_pos(t_cursor *cur);
 int				is_term_command(char *buff, t_cursor *cur, char *line);
 int				make_term_command(char *line, char *buff, t_cursor *cur,
 t_env *env);
-void			charge_from_history(char *line, t_cursor *cur, t_env *env);
+void			charge_from_history(char *line, char *src, t_cursor *cur);
 
 #endif

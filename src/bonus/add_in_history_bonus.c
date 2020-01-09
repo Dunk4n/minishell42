@@ -2,9 +2,38 @@
 #include <unistd.h>
 #include "minishell_bonus.h"
 
-void	charge_from_history(char *line, t_cursor *cur, t_env *env)
+static void	add_all_line(char *line, t_cursor *cur)
 {
-	ft_strncpy(line, env->hist[env->idx], LINE_SIZE);
+	size_t	i;
+	int		j;
+	int		nb;
+
+	i = 0;
+	nb = 0;
+	while (line[i])
+	{
+		j = 0;
+		while (line[i + j] && line[i + j] != '\n')
+			j++;
+		nb += 1 + (j + (!nb ? cur->startx + 3 : 0)) / cur->term_col;
+		i += j + 1;
+	}
+	j = 0;
+	nb = nb - (cur->term_line - 1 - cur->starty) - 1;
+	if (nb <= 0)
+		return ;
+	cur->starty -= nb;
+	while (j < nb)
+	{
+		write(1, "\n", 1);
+		j++;
+	}
+}
+
+void		charge_from_history(char *line, char *src, t_cursor *cur)
+{
+	ft_strncpy(line, src, LINE_SIZE);
+	add_all_line(line, cur);
 	cur->x = cur->startx;
 	cur->y = cur->starty;
 	cur->idx = 0;
@@ -26,7 +55,7 @@ void	charge_from_history(char *line, t_cursor *cur, t_env *env)
 	update_cursor_pos(cur);
 }
 
-int		add_in_history(t_env *env, char *line)
+int			add_in_history(t_env *env, char *line)
 {
 	char	*tmp;
 	char	*tmp2;

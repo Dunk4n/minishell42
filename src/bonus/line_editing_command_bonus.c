@@ -100,18 +100,35 @@ cur->line_size - cur->idx + 1);
 		idx += 2;
 		if (env->idx < HISTORY_SIZE && env->hist[env->idx + 1] != NULL)
 		{
-			if (env->idx == 0)
+			if (env->idx == -1)
+			{
+				int	i;
+
+				i = 0;
+				while (i < cur->line_size)
+				{
+					env->tmp[i] = (!line[i]) ? '\n' : line[i];
+					i++;
+				}
 				ft_memcpy(env->tmp, line, LINE_SIZE);
+			}
 			env->idx++;
-			charge_from_history(line, cur, env);
+			charge_from_history(line, env->hist[env->idx], cur);
 		}
 	}
 	else if (*buff == 27 && !ft_strncmp(buff + 1, "[B", 2))
 	{
-		move_cursor(0, 2);
-		printf("BAS            \n");
-		move_cursor(cur->x, cur->y);
 		idx += 2;
+		if (!env->idx)
+		{
+			env->idx--;
+			charge_from_history(line, env->tmp, cur);
+		}
+		if (env->idx > 0)
+		{
+			env->idx--;
+			charge_from_history(line, env->hist[env->idx], cur);
+		}
 	}
 	else if (*buff == 27 && !ft_strncmp(buff + 1, "[H", 2))
 	{
