@@ -6,7 +6,7 @@
 /*   By: cal-hawa <cal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/05 11:38:10 by cal-hawa          #+#    #+#             */
-/*   Updated: 2020/01/09 10:24:04 by cal-hawa         ###   ########.fr       */
+/*   Updated: 2020/01/09 20:04:54 by cal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,6 @@
 # define MAX_REDIRS	16
 
 # include "minishell.h"
-
-/*
-** === Not implemented ===
-** +) built-in execution
-*/
 
 int				g_exit_status;
 

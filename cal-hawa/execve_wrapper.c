@@ -6,7 +6,7 @@
 /*   By: cal-hawa <cal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/09 14:19:31 by cal-hawa          #+#    #+#             */
-/*   Updated: 2020/01/09 18:12:37 by cal-hawa         ###   ########.fr       */
+/*   Updated: 2020/01/09 19:40:59 by cal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int				execve_wrapper(char **argv, t_env *env)
 
 	n = is_built_in(argv[0]);
 	if (n > 0)
-		launch_regular_bltin(argv, env, n);
+		launch_regular_bltin(argv + 1, env, n);
 	else if (n == 0)
 		execve(argv[0], argv, env->env);
 	return (-1);
