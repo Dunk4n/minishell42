@@ -83,11 +83,8 @@ t_env		init(char **arg_env)
 		free_env(&env);
 		return (env);
 	}
-	env.size = 0;
-	env.idx = 0;
-	ft_bzero(env.tmp, LINE_SIZE);
 	i = 0;
-	while (i < LINE_SIZE)
+	while (i < HISTORY_SIZE)
 		env.hist[i++] = NULL;
 	return (env);
 }

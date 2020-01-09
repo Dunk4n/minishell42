@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef MINISHELL_BONUS_H
+# define MINISHELL_BONUS_H
 
 # include <curses.h>
 # include <term.h>
@@ -31,7 +31,6 @@ typedef struct	s_env
 	struct termios	termios_save;
 	char			*hist[HISTORY_SIZE];
 	char			tmp[LINE_SIZE];
-	int				size;
 	int				idx;
 }				t_env;
 
@@ -88,10 +87,11 @@ void			cursor_exec_at(char *cmd, int x, int y);
 int				get_edit_line(t_env *env, char **line);
 int				add_in_history(t_env *env, char *line);
 void			add_char_in_line(char *line, char *buff, t_cursor *cur);
-void			init_cursor(t_cursor *cur, int nb_cur);
+void			init_cursor(char *line, t_cursor *cur, int nb_cur, t_env *env);
 void			update_cursor_pos(t_cursor *cur);
 int				is_term_command(char *buff, t_cursor *cur, char *line);
 int				make_term_command(char *line, char *buff, t_cursor *cur,
 t_env *env);
+void			charge_from_history(char *line, t_cursor *cur, t_env *env);
 
 #endif

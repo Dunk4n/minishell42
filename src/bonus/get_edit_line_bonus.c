@@ -91,11 +91,10 @@ int			get_edit_line(t_env *env, char **new_line)
 	char		buff[128];
 	ssize_t		size;
 
-	init_cursor(&cur, 0);
+	init_cursor(line, &cur, 0, env);
 	if (cur.startx < 0 || cur.starty < 0)
 		return (0);
 	write(1, "$> ", 3);
-	ft_bzero(line, LINE_SIZE);
 	while (1)
 	{
 		move_cursor(0, 0);
@@ -105,7 +104,7 @@ int			get_edit_line(t_env *env, char **new_line)
 			return (0);
 		if (g_exit)
 		{
-			init_cursor(&cur, 3);
+			init_cursor(line, &cur, 3, env);
 			ft_bzero(line, LINE_SIZE);
 			g_exit = 0;
 		}

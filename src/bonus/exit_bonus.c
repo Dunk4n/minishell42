@@ -34,12 +34,11 @@ void		free_env(t_env *env)
 	free(env->env);
 	env->env = NULL;
 	i = 0;
-	while (i < env->size)
+	while (i < HISTORY_SIZE && env->hist[i])
 	{
 		free(env->hist[i]);
 		env->hist[i] = NULL;
 	}
-	env->size = 0;
 }
 
 int			ft_exit(size_t ac, char **av, t_env *env)

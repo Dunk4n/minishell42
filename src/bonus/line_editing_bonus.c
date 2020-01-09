@@ -63,8 +63,9 @@ cur->startx : 0)) - cur->line) / cur->term_col) + cur->line +
 	cur->x = (cur->col + ((!cur->line) ? cur->startx + 3 : 0)) % cur->term_col;
 }
 
-void		init_cursor(t_cursor *cur, int nb_cur)
+void		init_cursor(char *line, t_cursor *cur, int nb_cur, t_env *env)
 {
+	ft_bzero(line, LINE_SIZE);
 	get_cursor_position(&cur->startx, &cur->starty);
 	cur->startx -= nb_cur;
 	cur->x = cur->startx;
@@ -77,6 +78,8 @@ void		init_cursor(t_cursor *cur, int nb_cur)
 	cur->term_col = tgetnum("co");
 	cur->term_line = tgetnum("li");
 	update_cursor_pos(cur);
+	env->idx = -1;
+	ft_bzero(env->tmp, LINE_SIZE);
 }
 
 void		add_char_in_line(char *line, char *buff, t_cursor *cur)

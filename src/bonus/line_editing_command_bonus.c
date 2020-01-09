@@ -80,6 +80,8 @@ int			make_term_command(char *line, char *buff, t_cursor *cur, t_env *env)
 cur->line_size - cur->idx + 1);
 		move_one_char(cur, -1);
 		cur->line_size--;
+		if (!cur->line_size)
+			env->idx = -1;
 	}
 	else if (*buff == 27 && !ft_strncmp(buff + 1, "[D", 2))
 	{
@@ -95,10 +97,14 @@ cur->line_size - cur->idx + 1);
 	}
 	else if (*buff == 27 && !ft_strncmp(buff + 1, "[A", 2))
 	{
-		move_cursor(0, 2);
-		printf("HAUT           \n");
-		move_cursor(cur->x, cur->y);
 		idx += 2;
+		if (env->idx < HISTORY_SIZE && env->hist[env->idx + 1] != NULL)
+		{
+			if (env->idx == 0)
+				ft_memcpy(env->tmp, line, LINE_SIZE);
+			env->idx++;
+			charge_from_history(line, cur, env);
+		}
 	}
 	else if (*buff == 27 && !ft_strncmp(buff + 1, "[B", 2))
 	{

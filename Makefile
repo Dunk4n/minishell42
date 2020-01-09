@@ -66,6 +66,7 @@ SRC_PATH_BONUS	=	bonus/main_bonus.c					\
 					bonus/get_edit_line_bonus.c			\
 					bonus/line_editing_bonus.c			\
 					bonus/line_editing_command_bonus.c	\
+					bonus/add_in_history_bonus.c		\
 					echo.c								\
 					get_env.c							\
 					env.c								\
