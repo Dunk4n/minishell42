@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: niduches <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: cal-hawa <cal-hawa@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/15 19:02:16 by niduches          #+#    #+#              #
-#    Updated: 2020/01/05 10:30:42 by niduches         ###   ########.fr        #
+#    Updated: 2020/01/09 15:07:11 by niduches         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,36 +52,40 @@ CAL_PATH	=	exec_command.c				\
 				exec_redirections.c			\
 				parse_command.c				\
 				parse_split_redirections.c	\
+				built_in.c					\
+				execve_wrapper.c
 
 SRC = $(addprefix $(D_SRC),$(SRC_PATH))
 CAL = $(addprefix ./cal-hawa/,$(CAL_PATH))
 SRC += $(CAL)
 
-SRC_PATH_BONUS	=	bonus/main_bonus.c			\
-					bonus/init_bonus.c			\
-					bonus/exit_bonus.c			\
-					bonus/cursor_utils_bonus.c	\
-					bonus/get_edit_line_bonus.c	\
-					echo.c						\
-					get_env.c					\
-					env.c						\
-					pwd.c						\
-					get_all_instruction.c		\
-					export.c					\
-					unset.c						\
-					to_line_env.c				\
-					put_in_line.c				\
-					get_var_len.c				\
-					custom_split_instr.c		\
-					custom_split_arg.c			\
-					custom_split_sep.c			\
-					get_nb_sep.c				\
-					custom_split_sep_pipe.c		\
-					get_nb_sep_pipe.c			\
-					in_str.c					\
-					exec_bin.c					\
-					get_exec_path.c				\
-					cd.c						\
+SRC_PATH_BONUS	=	bonus/main_bonus.c					\
+					bonus/init_bonus.c					\
+					bonus/exit_bonus.c					\
+					bonus/cursor_utils_bonus.c			\
+					bonus/get_edit_line_bonus.c			\
+					bonus/line_editing_bonus.c			\
+					bonus/line_editing_command_bonus.c	\
+					echo.c								\
+					get_env.c							\
+					env.c								\
+					pwd.c								\
+					get_all_instruction.c				\
+					export.c							\
+					unset.c								\
+					to_line_env.c						\
+					put_in_line.c						\
+					get_var_len.c						\
+					custom_split_instr.c				\
+					custom_split_arg.c					\
+					custom_split_sep.c					\
+					get_nb_sep.c						\
+					custom_split_sep_pipe.c				\
+					get_nb_sep_pipe.c					\
+					in_str.c							\
+					exec_bin.c							\
+					get_exec_path.c						\
+					cd.c								\
 
 SRC_BONUS = $(addprefix $(D_SRC),$(SRC_PATH_BONUS))
 SRC_BONUS += $(CAL)

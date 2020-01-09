@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/15 19:07:52 by niduches          #+#    #+#             */
-/*   Updated: 2020/01/05 11:40:00 by niduches         ###   ########.fr       */
+/*   Updated: 2020/01/09 15:03:26 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 
 # define LINE_SIZE 4096
 # define HISTORY_SIZE 500
+
+int		g_exit;
 
 typedef struct	s_env
 {
@@ -85,5 +87,11 @@ void			cursor_exec_at(char *cmd, int x, int y);
 
 int				get_edit_line(t_env *env, char **line);
 int				add_in_history(t_env *env, char *line);
+void			add_char_in_line(char *line, char *buff, t_cursor *cur);
+void			init_cursor(t_cursor *cur, int nb_cur);
+void			update_cursor_pos(t_cursor *cur);
+int				is_term_command(char *buff, t_cursor *cur, char *line);
+int				make_term_command(char *line, char *buff, t_cursor *cur,
+t_env *env);
 
 #endif

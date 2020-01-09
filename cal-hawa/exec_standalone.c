@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   standalone.c                                       :+:      :+:    :+:   */
+/*   exec_standalone.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cal-hawa <cal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 18:22:57 by cal-hawa          #+#    #+#             */
-/*   Updated: 2020/01/05 12:24:37 by cal-hawa         ###   ########.fr       */
+/*   Updated: 2020/01/09 14:34:54 by cal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,18 @@
 #include <limits.h>
 #include "minishell.h"
 #include "execute.h"
+#include "built_in.h"
 
-static int		parent_process(pid_t child_pid)
+static int		parent_process(char **args, t_env *env, pid_t child_pid)
 {
 	int			wstatus;
 
 	if (waitpid(child_pid, &wstatus, 0) < 0)
 		return (-1);
 	if (WIFEXITED(wstatus))
-		g_exit_status = WEXITSTATUS(wstatus);
+		env->ret = WEXITSTATUS(wstatus);
+	if (is_built_in(args[0]) < 0)
+		launch_built_in(args, env);
 	return (1);
 }
 
@@ -35,10 +38,18 @@ static void		child_process(char **argv, char **redirs, t_env *env)
 
 	if (set_redirections(redirs) < 0)
 		exit(1);
-	get_exec_path(path, argv[0], env);
-	if (!path[0])
-		exit(1);
-	if (execve(path, argv, redirs) < 0)
+	if (!(is_built_in(argv[0])))
+	{
+		get_exec_path(path, argv[0], env);
+		if (!path[0])
+		{
+			write(2, argv[0], ft_strlen(argv[0]));
+			write(2, ": command not found\n", 20);
+			exit(1);
+		}
+	}
+	argv[0] = path;
+	if (execve_wrapper(argv, env) < 0)
 		exit(1);
 }
 
@@ -50,6 +61,6 @@ int				standalone(char **arguments, char **redirections, t_env *env)
 	if (pid == 0)
 		child_process(arguments, redirections, env);
 	else if (pid > 0)
-		return (parent_process(pid));
+		return (parent_process(arguments, env, pid));
 	return (-1);
 }

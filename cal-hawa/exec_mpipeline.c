@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mpipeline.c                                        :+:      :+:    :+:   */
+/*   exec_mpipeline.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cal-hawa <cal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 08:55:04 by cal-hawa          #+#    #+#             */
-/*   Updated: 2020/01/05 12:00:42 by cal-hawa         ###   ########.fr       */
+/*   Updated: 2020/01/09 14:47:55 by cal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,16 @@
 #include <limits.h>
 #include "minishell.h"
 #include "execute.h"
+#include "built_in.h"
 
-static int		parent_process(pid_t child_pid, int nw_in, int nw_out)
+static int		parent_process(pid_t child_pid, int nw_in, int nw_out, t_env *env)
 {
 	int			wstatus;
 
 	if (waitpid(child_pid, &wstatus, 0) < 0)
 		return (-1);
 	if (WIFEXITED(wstatus))
-		g_exit_status = WEXITSTATUS(wstatus);
+		env->ret = WEXITSTATUS(wstatus);
 	if (nw_in > 2 && close(nw_in) < 0)
 		return (-1);
 	if (nw_out > 2 && close(nw_out) < 0)
@@ -45,8 +46,13 @@ static void		child_process(char **args, char **redirs, int *nw, t_env *env)
 		exit(1);
 	get_exec_path(path, args[0], env);
 	if (!path[0])
+	{
+		write(2, args[0], ft_strlen(args[0]));
+		write(2, ": command not found\n", 20);
 		exit(1);
-	if (execve(path, args, g_envp) < 0)
+	}
+	args[0] = path;
+	if (execve_wrapper(args, env) < 0)
 		exit(1);
 }
 
@@ -58,7 +64,7 @@ static int		fork_process(char **args, char **redirs, int *nw, t_env *env)
 	if (pid == 0)
 		child_process(args, redirs, nw, env);
 	else if (pid > 0)
-		return (parent_process(pid, nw[0], nw[1]));
+		return (parent_process(pid, nw[0], nw[1], env));
 	return (-1);
 }
 
