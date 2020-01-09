@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/15 19:50:01 by niduches          #+#    #+#             */
-/*   Updated: 2019/12/17 14:23:47 by niduches         ###   ########.fr       */
+/*   Updated: 2020/01/09 13:58:13 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ t_env		init(char **arg_env)
 	env.idx = 0;
 	ft_bzero(env.tmp, LINE_SIZE);
 	i = 0;
-	while (i < 500)
+	while (i < LINE_SIZE)
 		env.hist[i++] = NULL;
 	return (env);
 }

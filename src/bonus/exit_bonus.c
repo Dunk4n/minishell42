@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/15 20:53:45 by niduches          #+#    #+#             */
-/*   Updated: 2020/01/05 11:41:05 by niduches         ###   ########.fr       */
+/*   Updated: 2020/01/09 13:38:02 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void		free_env(t_env *env)
 {
 	int	i;
 
+	if (!env || !(env->env))
+		return ;
 	i = 0;
 	while (env->env[i])
 		free(env->env[i++]);

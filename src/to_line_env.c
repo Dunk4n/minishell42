@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 19:46:54 by niduches          #+#    #+#             */
-/*   Updated: 2019/12/18 22:29:42 by niduches         ###   ########.fr       */
+/*   Updated: 2020/01/09 13:21:06 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ char			*to_line_env(char *line, t_env *env)
 	char	*new_line;
 	int		len;
 
+	if (!line)
+		return (NULL);
 	if (!is_env_variable(line))
 		return (line);
 	len = get_len_envline(line, env);
