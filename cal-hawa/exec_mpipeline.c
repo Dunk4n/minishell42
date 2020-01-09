@@ -6,7 +6,7 @@
 /*   By: cal-hawa <cal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 08:55:04 by cal-hawa          #+#    #+#             */
-/*   Updated: 2020/01/09 14:47:55 by cal-hawa         ###   ########.fr       */
+/*   Updated: 2020/01/09 18:14:33 by cal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,17 @@ static void		child_process(char **args, char **redirs, int *nw, t_env *env)
 		exit(1);
 	if (set_redirections(redirs) < 0)
 		exit(1);
-	get_exec_path(path, args[0], env);
-	if (!path[0])
+	if (!(is_built_in(args[0])))
 	{
-		write(2, args[0], ft_strlen(args[0]));
-		write(2, ": command not found\n", 20);
-		exit(1);
+		get_exec_path(path, args[0], env);
+		if (!path[0])
+		{
+			write(2, args[0], ft_strlen(args[0]));
+			write(2, ": command not found\n", 20);
+			exit(1);
+		}
+		args[0] = path;
 	}
-	args[0] = path;
 	if (execve_wrapper(args, env) < 0)
 		exit(1);
 }
