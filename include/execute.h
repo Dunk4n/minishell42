@@ -6,7 +6,7 @@
 /*   By: cal-hawa <cal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/05 11:38:10 by cal-hawa          #+#    #+#             */
-/*   Updated: 2020/01/05 12:42:22 by cal-hawa         ###   ########.fr       */
+/*   Updated: 2020/01/09 10:24:04 by cal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,10 @@
 
 /*
 ** === Not implemented ===
-** +) finding executable path
-** +) evironnement variables
 ** +) built-in execution
 */
 
 int				g_exit_status;
-char			**g_envp;
 
 /*
 ** Execute
