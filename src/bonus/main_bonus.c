@@ -43,8 +43,11 @@ int		main(int ac, char **av, char **arg_env)
 			free(line);
 			ft_exit(0, NULL, &env);
 		}
-		if (!(line = to_line_env(line, &env)))
+		if (!add_in_history(env, line) || !(line = to_line_env(line, &env)))
+		{
 			free_env(&env);
+			return (0);
+		}
 		get_all_instruction(line, &env);
 		free(line);
 	}

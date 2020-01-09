@@ -18,6 +18,7 @@
 # include "../libft/libft.h"
 
 # define LINE_SIZE 4096
+# define HISTORY_SIZE 500
 
 typedef struct	s_env
 {
@@ -26,7 +27,7 @@ typedef struct	s_env
 	char			ret;
 	struct termios	termios;
 	struct termios	termios_save;
-	char			*hist[500];
+	char			*hist[HISTORY_SIZE];
 	char			tmp[LINE_SIZE];
 	int				size;
 	int				idx;
@@ -83,5 +84,6 @@ void			cursor_exec(char *cmd);
 void			cursor_exec_at(char *cmd, int x, int y);
 
 int				get_edit_line(t_env *env, char **line);
+int				add_in_history(t_env *env, char *line);
 
 #endif

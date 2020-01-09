@@ -87,7 +87,7 @@ t_env		init(char **arg_env)
 	env.idx = 0;
 	ft_bzero(env.tmp, LINE_SIZE);
 	i = 0;
-	while (i < 500)
+	while (i < LINE_SIZE)
 		env.hist[i++] = NULL;
 	return (env);
 }
