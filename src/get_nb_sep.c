@@ -14,15 +14,13 @@
 
 size_t			is_sep(char *line)
 {
-	if (!ft_strncmp(line, ">>", 2))
-		return (2);
 	if (!ft_strncmp(line, "||", 2))
 		return (2);
 	if (!ft_strncmp(line, "&&", 2))
 		return (2);
-	if (!ft_strncmp(line, ">", 1))
+	if (!ft_strncmp(line, "(", 1))
 		return (1);
-	if (!ft_strncmp(line, "<", 1))
+	if (!ft_strncmp(line, ")", 1))
 		return (1);
 	return (0);
 }

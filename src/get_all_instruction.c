@@ -13,78 +13,6 @@
 #include "minishell.h"
 #include "execute.h"
 
-const char	*g_builtins_name[] = {"echo", "cd", "pwd", "export", "unset", "env",
-	"exit", NULL};
-
-int			(*const g_builtins[])(size_t, char**, t_env*) = {ft_echo, ft_cd,
-	ft_pwd, ft_export, ft_unset, ft_env, ft_exit};
-
-static int	is_builtins(char *name)
-{
-	int	i;
-
-	i = 0;
-	while (g_builtins_name[i])
-	{
-		if (!ft_strcmp(g_builtins_name[i], name))
-			return (i);
-		i++;
-	}
-	return (-1);
-}
-
-static int	exec_builtins(char **av, t_env *env, int idx)
-{
-	size_t	ac;
-
-	ac = 0;
-	while (av[ac])
-		ac++;
-	if (ac < 1)
-		return (0);
-	return (g_builtins[idx](ac - 1, av + 1, env));
-}
-
-static int	exec_instruction(char *inst, t_env *env)
-{
-	char	**argv;
-	int		ret;
-	int		idx;
-
-	if (!(argv = custom_split_arg(inst)))
-		return (-1);
-	ret = 0;
-	if (argv[0] && (idx = is_builtins(argv[0])) >= 0)
-		ret = exec_builtins(argv, env, idx);
-	else if (argv[0])
-		ret = exec_bin(argv, env);
-	idx = 0;
-	while (argv[idx])
-		free(argv[idx++]);
-	free(argv);
-	return (ret);
-}
-
-// separate line by '>', '<', '>>', '<<', '&&', '||'
-void		get_sep_redirection(char *line, t_env *env)
-{
-	char	**instructions;
-	size_t	i;
-
-	if (!(instructions = custom_split_sep(line)))
-		return ;
-	i = 0;
-//TODO redirection
-	while (instructions[i])
-	{
-		// exec instruction if is not '>', '<', '>>', '<<', '&&', '||'
-		if (!is_sep(instructions[i]))
-			env->ret = exec_instruction(instructions[i], env);
-		free(instructions[i++]);
-	}
-	free(instructions);
-}
-
 // separate line by '|'
 void		get_sep_pipe(char *line, t_env *env)
 {
@@ -98,12 +26,84 @@ void		get_sep_pipe(char *line, t_env *env)
 	else
 		execute_standalone(instructions[0], env);
 	i = 0;
-//TODO pipe
+	while (instructions[i])
+		free(instructions[i++]);
+	free(instructions);
+}
+
+static void	pass_parenthesis(char **inst, size_t *idx)
+{
+	int	nb;
+
+	free(inst[(*idx)++]);
+	free(inst[(*idx)++]);
+	nb = 1;
+	while (nb)
+	{
+		if (!ft_strcmp("(", inst[*idx]))
+			nb++;
+		if (!ft_strcmp(")", inst[*idx]))
+			nb--;
+		if (nb)
+			free(inst[(*idx)++]);
+	}
+}
+
+static int	good_logic_syntax(char **inst)
+{
+	size_t	i;
+	int		nb;
+
+	nb = 0;
+	i = 0;
+	while (inst[i] && nb >= 0)
+	{
+		if (!ft_strcmp("(", inst[i]) || !ft_strcmp(")", inst[i]))
+		{
+			if ((!ft_strcmp("(", inst[i]) &&inst[i + 1] && !ft_strcmp(")", inst[
+i + 1])) || (!ft_strcmp(")", inst[i]) && i > 0 && !ft_strcmp("(", inst[i - 1])))
+				return (0);
+			nb += (!ft_strcmp("(", inst[i])) ? 1 : -1;
+		}
+		else if (!ft_strcmp("&&", inst[i]) || !ft_strcmp("||", inst[i]))
+		{
+			if (i == 0 || !ft_strcmp("(", inst[i - 1]) || !ft_strcmp("&&",
+inst[i - 1]) || !ft_strcmp("||", inst[i - 1]) || !inst[i + 1] || !ft_strcmp(")",
+inst[i + 1]) || !ft_strcmp("&&", inst[i + 1]) || !ft_strcmp("||", inst[i + 1]))
+				return (0);
+		}
+		i++;
+	}
+	return (!nb);
+}
+
+// separate line by '(', ')', '&&', '||'
+void		get_sep_logic(char *line, t_env *env)
+{
+	char	**instructions;
+	size_t	i;
+
+	if (!(instructions = custom_split_sep(line)))
+		return ;
+	env->ret = 0;
+	if (!good_logic_syntax(instructions))
+	{
+		ft_printf("bash: syntax error\n");
+		return ;
+	}
+	i = 0;
 	while (instructions[i])
 	{
-		// exec instruction if is not '|'
-//		if (!is_sep_pipe(instructions[i]))
-//			get_sep_redirection(instructions[i], env);
+		if (!is_sep(instructions[i]))
+			get_sep_pipe(instructions[i], env);
+		else if ((!ft_strcmp(instructions[i], "&&") && env->ret) ||
+(!ft_strcmp(instructions[i], "||") && !env->ret))
+		{
+			if (!ft_strcmp("(", instructions[i + 1]))
+				pass_parenthesis(instructions, &i);
+			else
+				free(instructions[i++]);
+		}
 		free(instructions[i++]);
 	}
 	free(instructions);
@@ -122,7 +122,7 @@ void		get_all_instruction(char *line, t_env *env)
 	i = 0;
 	while (instructions[i])
 	{
-		get_sep_pipe(instructions[i], env);
+		get_sep_logic(instructions[i], env);
 		free(instructions[i++]);
 	}
 	free(instructions);
