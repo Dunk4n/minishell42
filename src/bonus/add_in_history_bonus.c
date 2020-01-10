@@ -2,7 +2,7 @@
 #include <unistd.h>
 #include "minishell_bonus.h"
 
-static void	add_all_line(char *line, t_cursor *cur)
+void	add_all_line(char *line, t_cursor *cur)
 {
 	size_t	i;
 	int		j;
@@ -52,7 +52,7 @@ void		charge_from_history(char *line, char *src, t_cursor *cur)
 	}
 	cur->line_max = cur->line + 1;
 	cur->line_size = cur->idx;
-	update_cursor_pos(cur);
+	update_cursor_pos(cur, line);
 }
 
 int			add_in_history(t_env *env, char *line)
@@ -62,7 +62,10 @@ int			add_in_history(t_env *env, char *line)
 	size_t	i;
 
 	if (!line || !env || !ft_strcmp(line, env->hist[0]))
+	{
+		free(line);
 		return (1);
+	}
 	tmp2 = line;
 	i = 0;
 	while (i < HISTORY_SIZE && tmp2)

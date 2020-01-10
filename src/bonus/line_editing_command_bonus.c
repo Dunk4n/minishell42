@@ -31,7 +31,8 @@ static void	move_up(char *line, char *buff, t_cursor *cur, int *idx)
 			cur->idx -= cur->col;
 			if (cur->idx > 0)
 				cur->idx--;
-			while (cur->idx - 1 == 0 || (cur->idx - 1 > 0 && line[cur->idx - 1]))
+			while (cur->idx - 1 == 0 || (cur->idx - 1 > 0 &&
+line[cur->idx - 1]))
 				cur->idx--;
 			i = 0;
 			while (i < cur->col && line[cur->idx + i])
@@ -110,7 +111,6 @@ cur->line_size - cur->idx + 1);
 					env->tmp[i] = (!line[i]) ? '\n' : line[i];
 					i++;
 				}
-				ft_memcpy(env->tmp, line, LINE_SIZE);
 			}
 			env->idx++;
 			charge_from_history(line, env->hist[env->idx], cur);
@@ -221,6 +221,6 @@ cur->line_size - cur->idx + 1);
 		}
 		idx++;
 	}
-	update_cursor_pos(cur);
+	update_cursor_pos(cur, line);
 	return (idx);
 }

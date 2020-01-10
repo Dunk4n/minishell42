@@ -54,17 +54,28 @@ int			is_term_command(char *buff, t_cursor *cur, char *line)
 	return (0);
 }
 
-void		update_cursor_pos(t_cursor *cur)
+void		update_cursor_pos(t_cursor *cur, char *line)
 {
-	cur->y = cur->starty + ((cur->line_size - (cur->col + ((!cur->line) ?
-cur->startx : 0)) - cur->line) / cur->term_col) + cur->line +
-(cur->col + ((!cur->line) ? cur->startx + 3 : 0)) / cur->term_col;
-	if (cur->y > cur->term_line)
+	int	i;
+	int	j;
+	int	nb;
+
+	nb = 0;
+	j = 0;
+	i = 0;
+	while (i < cur->idx)
 	{
-		cur->starty -= cur->y - (cur->term_line);
-		cur->y = cur->term_line - 1;
+		if (!line[i++])
+		{
+			nb += ((nb ? 0 : cur->startx + 3) + j) / cur->term_col;
+			j = 0;
+		}
+		else
+			j++;
 	}
-	cur->x = (cur->col + ((!cur->line) ? cur->startx + 3 : 0)) % cur->term_col;
+	nb += ((nb ? 0 : cur->startx + 3) + j) / cur->term_col;
+	cur->y = cur->starty + cur->line + nb;
+	cur->x = ((cur->line ? 0 : cur->startx + 3) + j) % cur->term_col;
 }
 
 void		init_cursor(char *line, t_cursor *cur, int nb_cur, t_env *env)
@@ -81,33 +92,22 @@ void		init_cursor(char *line, t_cursor *cur, int nb_cur, t_env *env)
 	cur->line_size = 0;
 	cur->term_col = tgetnum("co");
 	cur->term_line = tgetnum("li");
-	update_cursor_pos(cur);
+	update_cursor_pos(cur, line);
 	env->idx = -1;
 	ft_bzero(env->tmp, LINE_SIZE);
 }
 
 void		add_char_in_line(char *line, char *buff, t_cursor *cur)
 {
-	int	i;
-
 	if (cur->line_size + 1 >= LINE_SIZE)
 		return ;
 	ft_memmove(line + cur->idx + 1, line + cur->idx, cur->line_size -
 cur->idx);
 	line[cur->idx++] = (*buff != '\n') ? *buff : '\0';
 	cur->col++;
-	update_cursor_pos(cur);
+	update_cursor_pos(cur, line);
 	cur->line_size++;
 	if (*buff == '\n')
 		return ;
-	i = 0;
-	while (cur->idx + i < LINE_SIZE && line[cur->idx + i])
-		i++;
-	i = (i + cur->col + (!cur->line ? cur->startx + 3 : 0)) %
-		cur->term_col;
-	if (!i)
-	{
-		write(1, "\n", 1);
-		cur->starty--;
-	}
+	add_all_line(line, cur);
 }

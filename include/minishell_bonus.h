@@ -90,10 +90,11 @@ int				get_edit_line(t_env *env, char **line);
 int				add_in_history(t_env *env, char *line);
 void			add_char_in_line(char *line, char *buff, t_cursor *cur);
 void			init_cursor(char *line, t_cursor *cur, int nb_cur, t_env *env);
-void			update_cursor_pos(t_cursor *cur);
+void			update_cursor_pos(t_cursor *cur, char *line);
 int				is_term_command(char *buff, t_cursor *cur, char *line);
 int				make_term_command(char *line, char *buff, t_cursor *cur,
 t_env *env);
 void			charge_from_history(char *line, char *src, t_cursor *cur);
+void			add_all_line(char *line, t_cursor *cur);
 
 #endif

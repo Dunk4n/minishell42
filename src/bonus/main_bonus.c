@@ -44,12 +44,13 @@ signal(SIGQUIT, &sig_handler) == SIG_ERR || !((env = init(arg_env)).env))
 			free(line);
 			ft_exit(0, NULL, &env);
 		}
-		if (!add_in_history(&env, line) || !(line = to_line_env(line, &env)))
+		if (!(line = to_line_env(line, &env)))
 		{
 			free_env(&env);
 			return (0);
 		}
 		get_all_instruction(line, &env);
+		add_in_history(&env, line);
 	}
 	return (env.ret);
 }

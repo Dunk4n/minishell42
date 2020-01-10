@@ -98,7 +98,8 @@ int			get_edit_line(t_env *env, char **new_line)
 	while (1)
 	{
 		move_cursor(0, 0);
-		printf("[%d, %d], [%d, %d] %d                                 \n", cur.x, cur.y, cur.col, cur.line, cur.idx);
+		printf("[%d, %d], [%d, %d], [%d, %d] %d                                 \n",
+cur.x, cur.y, cur.x - cur.startx, cur.y - cur.starty, cur.col, cur.line, cur.idx);
 		move_cursor(cur.x, cur.y);
 		if ((size = read(STDIN_FILENO, buff, 127)) <= 0)
 			return (0);
