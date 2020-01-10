@@ -6,7 +6,7 @@
 #    By: cal-hawa <cal-hawa@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/15 19:02:16 by niduches          #+#    #+#              #
-#    Updated: 2020/01/09 15:07:11 by niduches         ###   ########.fr        #
+#    Updated: 2020/01/10 15:13:10 by cal-hawa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,6 +50,7 @@ CAL_PATH	=	exec_command.c				\
 				exec_mpipeline.c			\
 				parse_split_arguments.c		\
 				exec_redirections.c			\
+				exec_arguments.c			\
 				parse_command.c				\
 				parse_split_redirections.c	\
 				built_in.c					\

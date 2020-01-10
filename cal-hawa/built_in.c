@@ -6,7 +6,7 @@
 /*   By: cal-hawa <cal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/09 14:17:03 by cal-hawa          #+#    #+#             */
-/*   Updated: 2020/01/09 19:48:04 by cal-hawa         ###   ########.fr       */
+/*   Updated: 2020/01/10 15:17:21 by cal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,12 @@ int				launch_built_in(char **argv, t_env *env)
 		argc++;
 	n = -1;
 	if (ft_strcmp(blt, "cd") == 0 && (n = 1))
-		ft_cd(argc, argv, env);
+		env->ret = ft_cd(argc, argv, env);
 	else if (ft_strcmp(blt, "export") == 0 && (n = 1))
-		ft_export(argc, argv, env);
+		env->ret = ft_export(argc, argv, env);
 	else if (ft_strcmp(blt, "unset") == 0 && (n = 1))
-		ft_unset(argc, argv, env);
+		env->ret = ft_unset(argc, argv, env);
 	else if (ft_strcmp(blt, "exit") == 0 && (n = 1))
-		ft_exit(argc, argv, env);
+		env->ret = ft_exit(argc, argv, env);
 	return (n);
 }

@@ -6,7 +6,7 @@
 /*   By: cal-hawa <cal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 18:22:57 by cal-hawa          #+#    #+#             */
-/*   Updated: 2020/01/09 19:42:33 by cal-hawa         ###   ########.fr       */
+/*   Updated: 2020/01/10 15:26:54 by cal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ static void		child_process(char **argv, char **redirs, t_env *env)
 	char	path[PATH_MAX + 1];
 
 	if (set_redirections(redirs) < 0)
+		exit(1);
+	if (!(argv = set_arguments(argv)))
 		exit(1);
 	if (is_built_in(argv[0]) == 0)
 	{

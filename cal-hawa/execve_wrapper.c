@@ -6,7 +6,7 @@
 /*   By: cal-hawa <cal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/09 14:19:31 by cal-hawa          #+#    #+#             */
-/*   Updated: 2020/01/09 19:40:59 by cal-hawa         ###   ########.fr       */
+/*   Updated: 2020/01/10 15:17:56 by cal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ static void		launch_regular_bltin(char **argv, t_env *env, int n)
 	while (argv[argc])
 		argc++;
 	if (n == 1)
-		ft_echo(argc, argv, env);
+		env->ret = ft_echo(argc, argv, env);
 	else if (n == 2)
-		ft_env(argc, argv, env);
+		env->ret = ft_env(argc, argv, env);
 	else if (n == 3)
-		ft_pwd(argc, argv, env);
+		env->ret = ft_pwd(argc, argv, env);
 	exit(env->ret);
 }
 
