@@ -86,5 +86,7 @@ t_env		init(char **arg_env)
 	i = 0;
 	while (i < HISTORY_SIZE)
 		env.hist[i++] = NULL;
+	ft_bzero(env.copy, LINE_SIZE);
+	env.copy_end = 0;
 	return (env);
 }

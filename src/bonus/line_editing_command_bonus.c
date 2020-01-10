@@ -161,6 +161,66 @@ cur->line_size - cur->idx + 1);
 	}
 	move_up(line, buff, cur, &idx);
 	move_down(line, buff, cur, &idx);
+	if (!ft_strncmp("CC", buff, 2))
+	{
+		ft_memcpy(env->copy, line, LINE_SIZE);
+		env->copy_end = cur->line_size;
+		idx++;
+	}
+	if (!ft_strncmp("XX", buff, 2))
+	{
+		ft_memcpy(env->copy, line, LINE_SIZE);
+		env->copy_end = cur->line_size;
+		ft_bzero(line, LINE_SIZE);
+		cur->x = cur->startx;
+		cur->y = cur->starty;
+		cur->idx = 0;
+		cur->col = 0;
+		cur->line = 0;
+		cur->line_max = 1;
+		cur->line_size = 0;
+		idx++;
+	}
+	if (!ft_strncmp("cc", buff, 2))
+	{
+		ft_bzero(env->copy, LINE_SIZE);
+		ft_memcpy(env->copy, line + cur->idx, LINE_SIZE - cur->idx);
+		env->copy_end = cur->line_size - cur->idx;
+		idx++;
+	}
+	if (!ft_strncmp("xx", buff, 2))
+	{
+		ft_bzero(env->copy, LINE_SIZE);
+		ft_memcpy(env->copy, line + cur->idx, LINE_SIZE - cur->idx);
+		ft_bzero(line + cur->idx, LINE_SIZE - cur->idx);
+		env->copy_end = cur->line_size - cur->idx;
+		cur->line_max = cur->line + 1;
+		cur->line_size = cur->idx + 1;
+		idx++;
+	}
+	if (!ft_strncmp("vv", buff, 2))
+	{
+		int	i;
+
+		i = 0;
+		while (i < env->copy_end)
+		{
+			if (!env->copy[i])
+			{
+				add_char_in_line(line, "\n", cur);
+				if (cur->y == cur->term_line - 1)
+					cur->starty--;
+				write(1, "\n", 1);
+				cur->col = -1;
+				cur->line++;
+				cur->line_max++;
+			}
+			else
+				add_char_in_line(line, env->copy + i, cur);
+			i++;
+		}
+		idx++;
+	}
 	update_cursor_pos(cur);
 	return (idx);
 }

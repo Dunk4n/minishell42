@@ -43,6 +43,10 @@ int			is_term_command(char *buff, t_cursor *cur, char *line)
 		cur->line_max++;
 		return (0);
 	}
+	if (!ft_strncmp("cc", buff, 2) || !ft_strncmp("vv", buff, 2) ||
+!ft_strncmp("xx", buff, 2) || !ft_strncmp("CC", buff, 2) ||
+!ft_strncmp("XX", buff, 2))
+		return (1);
 	if (*buff == 27 || *buff == 127)
 		return (1);
 	else if (*buff < ' ')
@@ -86,6 +90,8 @@ void		add_char_in_line(char *line, char *buff, t_cursor *cur)
 {
 	int	i;
 
+	if (cur->line_size + 1 >= LINE_SIZE)
+		return ;
 	ft_memmove(line + cur->idx + 1, line + cur->idx, cur->line_size -
 cur->idx);
 	line[cur->idx++] = (*buff != '\n') ? *buff : '\0';
@@ -95,7 +101,7 @@ cur->idx);
 	if (*buff == '\n')
 		return ;
 	i = 0;
-	while (line[cur->idx + i])
+	while (cur->idx + i < LINE_SIZE && line[cur->idx + i])
 		i++;
 	i = (i + cur->col + (!cur->line ? cur->startx + 3 : 0)) %
 		cur->term_col;

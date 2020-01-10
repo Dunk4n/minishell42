@@ -36,9 +36,9 @@ void		charge_from_history(char *line, char *src, t_cursor *cur)
 	add_all_line(line, cur);
 	cur->x = cur->startx;
 	cur->y = cur->starty;
-	cur->idx = 0;
 	cur->col = 0;
 	cur->line = 0;
+	cur->idx = 0;
 	while (line[cur->idx] && cur->idx < LINE_SIZE)
 	{
 		cur->col++;

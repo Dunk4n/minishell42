@@ -86,12 +86,14 @@ void		get_sep_logic(char *line, t_env *env)
 	if (!(instructions = custom_split_sep(line)))
 		return ;
 	env->ret = 0;
+	i = 0;
 	if (!good_logic_syntax(instructions))
 	{
+		while (instructions[i])
+			free(instructions[i++]);
 		ft_printf("bash: syntax error\n");
 		return ;
 	}
-	i = 0;
 	while (instructions[i])
 	{
 		if (!is_sep(instructions[i]))

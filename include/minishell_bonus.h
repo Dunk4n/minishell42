@@ -31,6 +31,8 @@ typedef struct	s_env
 	struct termios	termios_save;
 	char			*hist[HISTORY_SIZE];
 	char			tmp[LINE_SIZE];
+	char			copy[LINE_SIZE];
+	int				copy_end;
 	int				idx;
 }				t_env;
 

@@ -97,7 +97,7 @@ NAME	=	minishell
 OBJ			=	$(SRC:%.c=$(BUILD_DIR)/%.o)
 OBJ_BONUS	=	$(SRC_BONUS:%.c=$(BUILD_DIR)/%.o)
 
-CFLAGS	=	-I$(D_INC) -Wall -Wextra #-Werror
+CFLAGS	=	-g -fsanitize=address -I$(D_INC) -Wall -Wextra #-Werror
 
 LDFLAGS	=	-L./libft/ -lft -ltermcap
 
