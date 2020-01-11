@@ -6,14 +6,13 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 17:41:38 by niduches          #+#    #+#             */
-/*   Updated: 2020/01/09 13:20:26 by niduches         ###   ########.fr       */
+/*   Updated: 2020/01/11 16:12:24 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "execute.h"
 
-// separate line by '|'
 void		get_sep_pipe(char *line, t_env *env)
 {
 	char	**instructions;
@@ -49,35 +48,22 @@ static void	pass_parenthesis(char **inst, size_t *idx)
 	}
 }
 
-static int	good_logic_syntax(char **inst)
+static int	get_sep_logic_error(char **instructions)
 {
 	size_t	i;
-	int		nb;
 
-	nb = 0;
 	i = 0;
-	while (inst[i] && nb >= 0)
+	if (!good_logic_syntax(instructions))
 	{
-		if (!ft_strcmp("(", inst[i]) || !ft_strcmp(")", inst[i]))
-		{
-			if ((!ft_strcmp("(", inst[i]) &&inst[i + 1] && !ft_strcmp(")", inst[
-i + 1])) || (!ft_strcmp(")", inst[i]) && i > 0 && !ft_strcmp("(", inst[i - 1])))
-				return (0);
-			nb += (!ft_strcmp("(", inst[i])) ? 1 : -1;
-		}
-		else if (!ft_strcmp("&&", inst[i]) || !ft_strcmp("||", inst[i]))
-		{
-			if (i == 0 || !ft_strcmp("(", inst[i - 1]) || !ft_strcmp("&&",
-inst[i - 1]) || !ft_strcmp("||", inst[i - 1]) || !inst[i + 1] || !ft_strcmp(")",
-inst[i + 1]) || !ft_strcmp("&&", inst[i + 1]) || !ft_strcmp("||", inst[i + 1]))
-				return (0);
-		}
-		i++;
+		while (instructions[i])
+			free(instructions[i++]);
+		free(instructions);
+		ft_printf("bash: syntax error\n");
+		return (0);
 	}
-	return (!nb);
+	return (1);
 }
 
-// separate line by '(', ')', '&&', '||'
 void		get_sep_logic(char *line, t_env *env)
 {
 	char	**instructions;
@@ -86,14 +72,9 @@ void		get_sep_logic(char *line, t_env *env)
 	if (!(instructions = custom_split_sep(line)))
 		return ;
 	env->ret = 0;
-	i = 0;
-	if (!good_logic_syntax(instructions))
-	{
-		while (instructions[i])
-			free(instructions[i++]);
-		ft_printf("bash: syntax error\n");
+	if (!get_sep_logic_error(instructions))
 		return ;
-	}
+	i = 0;
 	while (instructions[i])
 	{
 		if (!is_sep(instructions[i]))
@@ -111,7 +92,6 @@ void		get_sep_logic(char *line, t_env *env)
 	free(instructions);
 }
 
-// separate line by ';'
 void		get_all_instruction(char *line, t_env *env)
 {
 	char	**instructions;
