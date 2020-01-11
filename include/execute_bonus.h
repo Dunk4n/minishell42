@@ -6,7 +6,7 @@
 /*   By: cal-hawa <cal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/05 11:38:10 by cal-hawa          #+#    #+#             */
-/*   Updated: 2020/01/11 16:55:32 by niduches         ###   ########.fr       */
+/*   Updated: 2020/01/11 16:55:52 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # define MAX_ARGS	32
 # define MAX_REDIRS	16
 
-# include "minishell.h"
+# include "minishell_bonus.h"
 
 int				g_exit_status;
 

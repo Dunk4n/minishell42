@@ -6,7 +6,7 @@
 /*   By: cal-hawa <cal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 11:20:40 by cal-hawa          #+#    #+#             */
-/*   Updated: 2020/01/11 16:45:06 by niduches         ###   ########.fr       */
+/*   Updated: 2020/01/11 16:56:41 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <fcntl.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include "execute.h"
+#include "execute_bonus.h"
 
 static char		*set_filename(char *file, int *oflag)
 {
@@ -56,13 +56,14 @@ static int		redirect_output(char *file_name, int oflag)
 	return (1);
 }
 
-static int		here_doc(char *word, int stdin)
+static int		here_doc(char *word, int stdin, t_env *env)
 {
 	char		*line;
 	int			pipefd[2];
 
 	if (pipe(pipefd) < 0)
 		return (-1);
+	tcsetattr(STDIN_FILENO, TCSADRAIN, &(env->termios_save));
 	ft_printf("> ");
 	while (get_next_line(stdin, &line))
 	{
@@ -73,6 +74,7 @@ static int		here_doc(char *word, int stdin)
 		write(pipefd[1], "\n", 1);
 		ft_printf("> ");
 	}
+	tcsetattr(STDIN_FILENO, TCSADRAIN, &(env->termios));
 	if (close(pipefd[1]) < 0)
 		return (-1);
 	if (dup2(pipefd[0], 0) < 0)
@@ -80,12 +82,13 @@ static int		here_doc(char *word, int stdin)
 	return (1);
 }
 
-static int		redirect_intput(char *file_name, int oflag, int stdin)
+static int		redirect_intput(char *file_name, int oflag, int stdin,
+t_env *env)
 {
 	int			fd;
 
 	if (oflag == -1)
-		return (here_doc(file_name, stdin));
+		return (here_doc(file_name, stdin, env));
 	if ((fd = open(file_name, oflag)) < 0)
 		return (-1);
 	if (dup2(fd, 0) < 0)
@@ -101,7 +104,6 @@ int				set_redirections(char **redirs, t_env *env)
 	int			fd;
 	int			stdin;
 
-	(void)env;
 	if ((stdin = dup(0)) < 0)
 		return (-1);
 	i = 0;
@@ -109,7 +111,7 @@ int				set_redirections(char **redirs, t_env *env)
 	{
 		file_name = set_filename(redirs[i], &oflag);
 		if (oflag == O_RDONLY || oflag == -1)
-			fd = redirect_intput(file_name, oflag, stdin);
+			fd = redirect_intput(file_name, oflag, stdin, env);
 		else
 			fd = redirect_output(file_name, oflag);
 		if (fd < 0)

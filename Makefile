@@ -6,7 +6,7 @@
 #    By: cal-hawa <cal-hawa@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/15 19:02:16 by niduches          #+#    #+#              #
-#    Updated: 2020/01/11 16:04:11 by niduches         ###   ########.fr        #
+#    Updated: 2020/01/11 16:52:21 by niduches         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,28 +19,28 @@ D_LIB		=	./libft/
 
 BUILD_DIR	=	build
 
-SRC_PATH	=	main.c						\
-				init.c						\
-				exit.c						\
-				echo.c						\
-				get_env.c					\
-				env.c						\
-				pwd.c						\
-				get_all_instruction.c		\
-				export.c					\
-				unset.c						\
-				to_line_env.c				\
-				put_in_line.c				\
-				get_var_len.c				\
-				custom_split_instr.c		\
-				custom_split_arg.c			\
-				custom_split_sep.c			\
-				get_nb_sep.c				\
-				custom_split_sep_pipe.c		\
-				get_nb_sep_pipe.c			\
-				in_str.c					\
-				get_exec_path.c				\
-				cd.c						\
+SRC_PATH	=	main.c								\
+				init.c								\
+				exit.c								\
+				echo.c								\
+				get_env.c							\
+				env.c								\
+				pwd.c								\
+				get_all_instruction.c				\
+				export.c							\
+				unset.c								\
+				to_line_env.c						\
+				put_in_line.c						\
+				get_var_len.c						\
+				custom_split_instr.c				\
+				custom_split_arg.c					\
+				custom_split_sep.c					\
+				get_nb_sep.c						\
+				custom_split_sep_pipe.c				\
+				get_nb_sep_pipe.c					\
+				in_str.c							\
+				get_exec_path.c						\
+				cd.c								\
 
 CAL_PATH	=	exec_command.c				\
 				exec_standalone.c			\
@@ -53,7 +53,7 @@ CAL_PATH	=	exec_command.c				\
 				parse_command.c				\
 				parse_split_redirections.c	\
 				built_in.c					\
-				execve_wrapper.c
+				execve_wrapper.c			\
 
 SRC = $(addprefix $(D_SRC),$(SRC_PATH))
 CAL = $(addprefix ./cal-hawa/,$(CAL_PATH))
@@ -88,8 +88,22 @@ SRC_PATH_BONUS	=	bonus/main_bonus.c							\
 					get_exec_path.c								\
 					cd.c										\
 
+CAL_PATH_BONUS	=	exec_command.c				\
+					exec_standalone.c			\
+					parse_process_quote.c		\
+					parse_str_trim.c			\
+					exec_mpipeline.c			\
+					parse_split_arguments.c		\
+					exec_redirections_bonus.c	\
+					exec_arguments_bonus.c		\
+					parse_command.c				\
+					parse_split_redirections.c	\
+					built_in.c					\
+					execve_wrapper.c			\
+
 SRC_BONUS = $(addprefix $(D_SRC),$(SRC_PATH_BONUS))
-SRC_BONUS += $(CAL)
+CAL_BONUS = $(addprefix ./cal-hawa/,$(CAL_PATH_BONUS))
+SRC_BONUS += $(CAL_BONUS)
 
 NAME	=	minishell
 
