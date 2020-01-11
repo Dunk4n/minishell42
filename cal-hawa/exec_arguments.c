@@ -6,7 +6,7 @@
 /*   By: cal-hawa <cal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/10 14:59:14 by cal-hawa          #+#    #+#             */
-/*   Updated: 2020/01/10 15:32:41 by cal-hawa         ###   ########.fr       */
+/*   Updated: 2020/01/11 17:19:56 by cal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ char			**set_arguments(char **args)
 
 	globbuf.gl_offs = 1;
 	i = 1;
+	if (args[i] == 0)
+		return (args);
 	if (glob(args[i], GLOB_DOOFFS | GLOB_NOCHECK, 0, &globbuf))
 		return (0);
 	while (args[++i])
