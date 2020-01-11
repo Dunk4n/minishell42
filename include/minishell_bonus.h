@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/15 19:07:52 by niduches          #+#    #+#             */
-/*   Updated: 2020/01/11 14:24:26 by niduches         ###   ########.fr       */
+/*   Updated: 2020/01/11 16:15:04 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ int				get_nb_sep(char *line);
 int				is_only_space(char *line, size_t end);
 size_t			pass_normal(char *line);
 size_t			is_sep(char *line);
-int				exec_bin(char **av, t_env *env);
 void			get_exec_path(char *path, char *name, t_env *env);
 char			**custom_split_sep_pipe(char *line);
 int				get_nb_sep_pipe(char *line);
@@ -80,8 +79,8 @@ size_t			pass_normal_pipe(char *line);
 size_t			is_sep_pipe(char *line);
 int				ft_cd(size_t ac, char **av, t_env *env);
 void			free_env(t_env *env);
+int				good_logic_syntax(char **inst);
 
-//cursor
 void			get_cursor_position(int *col, int *row);
 void			move_cursor(int col, int row);
 void			cursor_exec(char *cmd);
@@ -97,5 +96,10 @@ int				make_term_command(char *line, char *buff, t_cursor *cur,
 t_env *env);
 void			charge_from_history(char *line, char *src, t_cursor *cur);
 void			add_all_line(char *line, t_cursor *cur);
+int				term_copy(char *line, char *buff, t_cursor *cur, t_env *env);
+int				move_cur(char *line, char *buff, t_cursor *cur, t_env *env);
+void			move_down(char *line, char *buff, t_cursor *cur, int *idx);
+void			move_up(char *line, char *buff, t_cursor *cur, int *idx);
+void			move_one_char(t_cursor *cur, int dir);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/19 17:21:30 by niduches          #+#    #+#             */
-/*   Updated: 2019/12/19 17:46:33 by niduches         ###   ########.fr       */
+/*   Updated: 2020/01/11 16:01:00 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,9 @@ static char	*fill_in(char *line, size_t *index)
 	size_t	i;
 	size_t	nb;
 
-	while (!(nb = get_len_sep(line + *index, index)) && *line);
+	nb = get_len_sep(line + *index, index);
+	while (!nb && *line)
+		nb = get_len_sep(line + *index, index);
 	if (!(str = malloc((nb + 1) * sizeof(char))))
 		return (NULL);
 	str[nb] = '\0';
@@ -64,7 +66,7 @@ char		**custom_split_sep(char *line)
 	{
 		if (!(array[word] = fill_in(line, &i)))
 		{
-			while(--word >= 0)
+			while (--word >= 0)
 				free(array[word]);
 			free(array);
 			return (NULL);

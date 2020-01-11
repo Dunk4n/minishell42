@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/15 21:22:44 by niduches          #+#    #+#             */
-/*   Updated: 2019/12/17 14:05:35 by niduches         ###   ########.fr       */
+/*   Updated: 2020/01/11 16:14:04 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,35 @@ static size_t	env_len(char *str)
 	while (str[i] && str[i] != '=')
 		i++;
 	return (i);
+}
+
+int				good_logic_syntax(char **inst)
+{
+	size_t	i;
+	int		nb;
+
+	nb = 0;
+	i = 0;
+	while (inst[i] && nb >= 0)
+	{
+		if (!ft_strcmp("(", inst[i]) || !ft_strcmp(")", inst[i]))
+		{
+			if ((!ft_strcmp("(", inst[i]) && inst[i + 1] && !ft_strcmp(")",
+inst[i + 1])) || (!ft_strcmp(")", inst[i]) && i > 0 && !ft_strcmp("(",
+inst[i - 1])))
+				return (0);
+			nb += (!ft_strcmp("(", inst[i])) ? 1 : -1;
+		}
+		else if (!ft_strcmp("&&", inst[i]) || !ft_strcmp("||", inst[i]))
+		{
+			if (i == 0 || !ft_strcmp("(", inst[i - 1]) || !ft_strcmp("&&",
+inst[i - 1]) || !ft_strcmp("||", inst[i - 1]) || !inst[i + 1] || !ft_strcmp(")",
+inst[i + 1]) || !ft_strcmp("&&", inst[i + 1]) || !ft_strcmp("||", inst[i + 1]))
+				return (0);
+		}
+		i++;
+	}
+	return (!nb);
 }
 
 char			**get_env(t_env *env, char *to_find)

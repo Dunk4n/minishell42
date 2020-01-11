@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/15 19:07:52 by niduches          #+#    #+#             */
-/*   Updated: 2020/01/05 11:40:00 by niduches         ###   ########.fr       */
+/*   Updated: 2020/01/11 16:12:50 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ int				get_nb_sep(char *line);
 int				is_only_space(char *line, size_t end);
 size_t			pass_normal(char *line);
 size_t			is_sep(char *line);
-int				exec_bin(char **av, t_env *env);
 void			get_exec_path(char *path, char *name, t_env *env);
 char			**custom_split_sep_pipe(char *line);
 int				get_nb_sep_pipe(char *line);
@@ -50,5 +49,6 @@ size_t			pass_normal_pipe(char *line);
 size_t			is_sep_pipe(char *line);
 int				ft_cd(size_t ac, char **av, t_env *env);
 void			free_env(t_env *env);
+int				good_logic_syntax(char **inst);
 
 #endif
