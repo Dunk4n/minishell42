@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cursor_utils_bonus.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/11 14:18:26 by niduches          #+#    #+#             */
+/*   Updated: 2020/01/11 14:18:29 by niduches         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdio.h>
@@ -7,9 +18,9 @@
 
 void	get_cursor_position(int *col, int *row)
 {
-    char	buff[16];
+	char	buff[16];
 	char	*term;
-    size_t	i;
+	size_t	i;
 	ssize_t	size;
 	int		nb;
 

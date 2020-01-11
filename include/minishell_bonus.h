@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/15 19:07:52 by niduches          #+#    #+#             */
-/*   Updated: 2020/01/09 15:03:26 by niduches         ###   ########.fr       */
+/*   Updated: 2020/01/11 14:24:26 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct	s_cursor
 	int		line_size;
 	int		term_col;
 	int		term_line;
+	t_env	*env;
 }				t_cursor;
 
 t_env			init(char **arg_env);

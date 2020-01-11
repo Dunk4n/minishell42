@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   line_editing_bonus.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/11 14:19:16 by niduches          #+#    #+#             */
+/*   Updated: 2020/01/11 14:25:15 by niduches         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdio.h>
@@ -95,6 +106,7 @@ void		init_cursor(char *line, t_cursor *cur, int nb_cur, t_env *env)
 	update_cursor_pos(cur, line);
 	env->idx = -1;
 	ft_bzero(env->tmp, LINE_SIZE);
+	cur->env = env;
 }
 
 void		add_char_in_line(char *line, char *buff, t_cursor *cur)

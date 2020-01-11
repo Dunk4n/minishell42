@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   add_in_history_bonus.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/11 14:17:35 by niduches          #+#    #+#             */
+/*   Updated: 2020/01/11 14:20:10 by niduches         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include <unistd.h>
 #include "minishell_bonus.h"
@@ -30,7 +41,7 @@ void	add_all_line(char *line, t_cursor *cur)
 	}
 }
 
-void		charge_from_history(char *line, char *src, t_cursor *cur)
+void	charge_from_history(char *line, char *src, t_cursor *cur)
 {
 	ft_strncpy(line, src, LINE_SIZE);
 	add_all_line(line, cur);
@@ -55,7 +66,7 @@ void		charge_from_history(char *line, char *src, t_cursor *cur)
 	update_cursor_pos(cur, line);
 }
 
-int			add_in_history(t_env *env, char *line)
+int		add_in_history(t_env *env, char *line)
 {
 	char	*tmp;
 	char	*tmp2;

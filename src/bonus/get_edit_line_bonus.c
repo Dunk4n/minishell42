@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/09 13:22:43 by niduches          #+#    #+#             */
-/*   Updated: 2020/01/09 14:49:42 by niduches         ###   ########.fr       */
+/*   Updated: 2020/01/11 15:41:48 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stdio.h>
 #include "minishell_bonus.h"
 
-static void	display_all_command_line(t_cursor *cur, char *line)
+static void	display_all_command_line(t_cursor *cur, char *line, char move)
 {
 	int	i;
 	int	j;
@@ -33,6 +33,8 @@ static void	display_all_command_line(t_cursor *cur, char *line)
 		move_cursor(0, cur->starty + j);
 		i++;
 	}
+	if (move)
+		move_cursor(cur->x, cur->y);
 }
 
 static char	*get_good_line(t_cursor *cur, char *line)
@@ -55,33 +57,34 @@ static char	*get_good_line(t_cursor *cur, char *line)
 	return (new);
 }
 
-static char	*parse_command(char *line, char *buff, t_cursor *cur, t_env *env)
+static int	parse_command(char *line, char *buff, t_cursor *cur,
+char **new_line)
 {
 	int		i;
 	char	*tmp;
 
+	*new_line = NULL;
 	tmp = buff;
 	while (*buff)
 	{
 		i = 0;
 		if (!is_term_command(buff, cur, line))
 			add_char_in_line(line, buff++, cur);
-		else if (!(i = make_term_command(line, buff, cur, env)))
+		else if (!(i = make_term_command(line, buff, cur, cur->env)))
 		{
 			if (*buff != 4)
 			{
-				display_all_command_line(cur, line);
+				display_all_command_line(cur, line, 0);
 				if (cur->y == cur->term_line - 1)
 					write(1, "\n", 1);
+				*new_line = get_good_line(cur, line);
 			}
-			else
-				return (NULL);
-			return (get_good_line(cur, line));
+			return (0);
 		}
 		buff += i;
 	}
 	*tmp = '\0';
-	return (NULL);
+	return (1);
 }
 
 int			get_edit_line(t_env *env, char **new_line)
@@ -97,10 +100,6 @@ int			get_edit_line(t_env *env, char **new_line)
 	write(1, "$> ", 3);
 	while (1)
 	{
-		move_cursor(0, 0);
-		printf("[%d, %d], [%d, %d], [%d, %d] %d                                 \n",
-cur.x, cur.y, cur.x - cur.startx, cur.y - cur.starty, cur.col, cur.line, cur.idx);
-		move_cursor(cur.x, cur.y);
 		if ((size = read(STDIN_FILENO, buff, 127)) <= 0)
 			return (0);
 		if (g_exit)
@@ -110,14 +109,9 @@ cur.x, cur.y, cur.x - cur.startx, cur.y - cur.starty, cur.col, cur.line, cur.idx
 			g_exit = 0;
 		}
 		buff[size] = '\0';
-		if (size > 0)
-		{
-			*new_line = parse_command(line, buff, &cur, env);
-			if (*buff)
-				return (1);
-		}
-		display_all_command_line(&cur, line);
-		move_cursor(cur.x, cur.y);
+		if (size > 0 && !parse_command(line, buff, &cur, new_line))
+			return (1);
+		display_all_command_line(&cur, line, 1);
 	}
 	return (0);
 }
