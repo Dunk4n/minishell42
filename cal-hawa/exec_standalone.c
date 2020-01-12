@@ -6,7 +6,7 @@
 /*   By: cal-hawa <cal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 18:22:57 by cal-hawa          #+#    #+#             */
-/*   Updated: 2020/01/11 16:43:30 by niduches         ###   ########.fr       */
+/*   Updated: 2020/01/12 17:35:20 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void		child_process(char **argv, char **redirs, t_env *env)
 		{
 			write(2, argv[0], ft_strlen(argv[0]));
 			write(2, ": command not found\n", 20);
-			exit(1);
+			exit(127);
 		}
 		argv[0] = path;
 	}

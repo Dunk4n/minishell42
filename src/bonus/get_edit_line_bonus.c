@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/09 13:22:43 by niduches          #+#    #+#             */
-/*   Updated: 2020/01/11 15:41:48 by niduches         ###   ########.fr       */
+/*   Updated: 2020/01/12 18:14:18 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,12 +94,12 @@ int			get_edit_line(t_env *env, char **new_line)
 	char		buff[128];
 	ssize_t		size;
 
-	init_cursor(line, &cur, 0, env);
+	init_cursor(line, &cur, g_exit ? 3 : 0, env);
 	if (cur.startx < 0 || cur.starty < 0)
 		return (0);
-	write(1, "$> ", 3);
 	while (1)
 	{
+		display_all_command_line(&cur, line, 1);
 		if ((size = read(STDIN_FILENO, buff, 127)) <= 0)
 			return (0);
 		if (g_exit)
@@ -111,7 +111,6 @@ int			get_edit_line(t_env *env, char **new_line)
 		buff[size] = '\0';
 		if (size > 0 && !parse_command(line, buff, &cur, new_line))
 			return (1);
-		display_all_command_line(&cur, line, 1);
 	}
 	return (0);
 }

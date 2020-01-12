@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/15 19:50:01 by niduches          #+#    #+#             */
-/*   Updated: 2020/01/09 13:58:13 by niduches         ###   ########.fr       */
+/*   Updated: 2020/01/12 18:14:46 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,12 @@ t_env		init(char **arg_env)
 	t_env	env;
 	size_t	i;
 
+	g_exit = 0;
+	i = 0;
+	while (i < HISTORY_SIZE)
+		env.hist[i++] = NULL;
+	ft_bzero(env.copy, LINE_SIZE);
+	env.copy_end = 0;
 	env.env = NULL;
 	env.ret = 0;
 	env.nb_env = 0;
@@ -83,10 +89,5 @@ t_env		init(char **arg_env)
 		free_env(&env);
 		return (env);
 	}
-	i = 0;
-	while (i < HISTORY_SIZE)
-		env.hist[i++] = NULL;
-	ft_bzero(env.copy, LINE_SIZE);
-	env.copy_end = 0;
 	return (env);
 }

@@ -6,7 +6,7 @@
 /*   By: cal-hawa <cal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/15 19:07:13 by niduches          #+#    #+#             */
-/*   Updated: 2020/01/09 14:05:47 by niduches         ###   ########.fr       */
+/*   Updated: 2020/01/12 18:55:22 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@
 void	sig_handler(int signal)
 {
 	if (signal == SIGINT)
+	{
+		g_exit = 1;
 		write(1, "\n$> ", 4);
+	}
 	else if (signal == SIGQUIT)
 		return ;
 }
@@ -32,18 +35,18 @@ int		main(int ac, char **av, char **arg_env)
 		return (0);
 	(void)av;
 	if (signal(SIGINT, &sig_handler) == SIG_ERR || \
-		signal(SIGQUIT, &sig_handler) == SIG_ERR)
-		return (1);
-	if (!((env = init(arg_env)).env))
+		signal(SIGQUIT, &sig_handler) == SIG_ERR ||
+!((env = init(arg_env)).env))
 		return (1);
 	while (1)
 	{
-		write(1, "$> ", 3);
+		write(1, "$> ", g_exit ? 0 : 3);
 		if (!get_next_line(0, &line) && (!line || !line[0]))
 		{
 			free(line);
 			ft_exit(0, NULL, &env);
 		}
+		g_exit = 0;
 		if (!(line = to_line_env(line, &env)))
 			free_env(&env);
 		get_all_instruction(line, &env);

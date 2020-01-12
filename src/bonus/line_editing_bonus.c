@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 14:19:16 by niduches          #+#    #+#             */
-/*   Updated: 2020/01/11 14:25:15 by niduches         ###   ########.fr       */
+/*   Updated: 2020/01/12 18:12:09 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ void		update_cursor_pos(t_cursor *cur, char *line)
 
 void		init_cursor(char *line, t_cursor *cur, int nb_cur, t_env *env)
 {
+	g_exit = 0;
 	ft_bzero(line, LINE_SIZE);
 	get_cursor_position(&cur->startx, &cur->starty);
 	cur->startx -= nb_cur;

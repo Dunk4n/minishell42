@@ -6,7 +6,7 @@
 /*   By: cal-hawa <cal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/15 20:53:45 by niduches          #+#    #+#             */
-/*   Updated: 2020/01/09 14:41:42 by cal-hawa         ###   ########.fr       */
+/*   Updated: 2020/01/12 17:40:57 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,11 @@ int			ft_exit(size_t ac, char **av, t_env *env)
 	write(1, "exit\n", 5);
 	if (!env->env)
 		exit(0);
-	if (ac > 2)
-	{
-		write(1, "bash: exit: too many arguments\n", 31);
-		return (1);
-	}
 	if (av && *av && !ft_is_number(*av))
-	{
 		ft_printf("bash: exit: %s: numeric argument required\n", *av);
+	else if (ac > 1)
+	{
+		write(2, "bash: exit: too many arguments\n", 31);
 		return (1);
 	}
 	ret = 0;

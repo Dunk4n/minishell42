@@ -6,7 +6,7 @@
 #    By: cal-hawa <cal-hawa@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/15 19:02:16 by niduches          #+#    #+#              #
-#    Updated: 2020/01/11 16:52:21 by niduches         ###   ########.fr        #
+#    Updated: 2020/01/11 18:12:05 by niduches         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -144,7 +144,7 @@ $(NAME): lib options $(OBJ)
 	@echo "  BUILD    $@"
 	$(CC) $(CFLAGS) -o $@ $(OBJ) $(LDFLAGS)
 
-bonus: fclean lib options $(OBJ_BONUS)
+bonus: lib options $(OBJ_BONUS)
 	@echo "  BUILD    $@"
 	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ_BONUS) $(LDFLAGS)
 

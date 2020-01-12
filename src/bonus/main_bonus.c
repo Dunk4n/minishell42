@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/09 13:41:06 by niduches          #+#    #+#             */
-/*   Updated: 2020/01/11 15:45:15 by niduches         ###   ########.fr       */
+/*   Updated: 2020/01/12 18:15:06 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,13 @@ signal(SIGQUIT, &sig_handler) == SIG_ERR || !((env = init(arg_env)).env))
 	(void)av;
 	while (1)
 	{
-		g_exit = 0;
 		line = NULL;
 		if ((!get_edit_line(&env, &line) || !line))
 		{
 			free(line);
 			ft_exit(0, NULL, &env);
 		}
+		g_exit = 0;
 		if (!(line = to_line_env(line, &env)))
 		{
 			free_env(&env);
