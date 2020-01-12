@@ -6,7 +6,7 @@
 /*   By: cal-hawa <cal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/15 15:54:14 by cal-hawa          #+#    #+#             */
-/*   Updated: 2020/01/05 12:04:22 by cal-hawa         ###   ########.fr       */
+/*   Updated: 2020/01/12 19:12:23 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ static int		quoted_argument(char *str, char **args, int nargs, int quote)
 		return (-1);
 	nargs++;
 	*str = c;
+	if (!*str)
+		return (split_args(str, args, nargs));
 	return (split_args(str + 1, args, nargs));
 }
 
