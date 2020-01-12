@@ -6,7 +6,7 @@
 /*   By: cal-hawa <cal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/05 11:38:10 by cal-hawa          #+#    #+#             */
-/*   Updated: 2020/01/11 16:55:32 by niduches         ###   ########.fr       */
+/*   Updated: 2020/01/12 20:53:17 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int				standalone(char **arguments, char **redirections, t_env *env);
 /*
 ** Redirections
 */
-int				set_redirections(char **redirs, t_env *env);
+int				set_redirections(char **redirs);
 
 /*
 ** Arguments

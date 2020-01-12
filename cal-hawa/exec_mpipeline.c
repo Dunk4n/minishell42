@@ -6,7 +6,7 @@
 /*   By: cal-hawa <cal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 08:55:04 by cal-hawa          #+#    #+#             */
-/*   Updated: 2020/01/12 17:36:31 by niduches         ###   ########.fr       */
+/*   Updated: 2020/01/12 21:01:45 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void		child_process(char **args, char **redirs, int *nw, t_env *env)
 		exit(1);
 	if (dup2(nw[1], 1) < 0)
 		exit(1);
-	if (set_redirections(redirs, env) < 0)
+	if (set_redirections(redirs) < 0)
 		exit(1);
 	if (!(args = set_arguments(args)))
 		exit(1);

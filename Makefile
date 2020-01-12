@@ -6,7 +6,7 @@
 #    By: cal-hawa <cal-hawa@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/15 19:02:16 by niduches          #+#    #+#              #
-#    Updated: 2020/01/11 18:12:05 by niduches         ###   ########.fr        #
+#    Updated: 2020/01/12 21:05:31 by niduches         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,11 +68,11 @@ SRC_PATH_BONUS	=	bonus/main_bonus.c							\
 					bonus/line_editing_command_bonus.c			\
 					bonus/add_in_history_bonus.c				\
 					bonus/line_editing_command_other_bonus.c	\
+					bonus/get_all_instruction_bonus.c			\
 					echo.c										\
 					get_env.c									\
 					env.c										\
 					pwd.c										\
-					get_all_instruction.c						\
 					export.c									\
 					unset.c										\
 					to_line_env.c								\
@@ -94,7 +94,7 @@ CAL_PATH_BONUS	=	exec_command.c				\
 					parse_str_trim.c			\
 					exec_mpipeline.c			\
 					parse_split_arguments.c		\
-					exec_redirections_bonus.c	\
+					exec_redirections.c			\
 					exec_arguments_bonus.c		\
 					parse_command.c				\
 					parse_split_redirections.c	\

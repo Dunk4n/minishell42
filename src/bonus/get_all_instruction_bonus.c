@@ -6,24 +6,27 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 17:41:38 by niduches          #+#    #+#             */
-/*   Updated: 2020/01/12 19:46:50 by niduches         ###   ########.fr       */
+/*   Updated: 2020/01/12 19:55:10 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-#include "execute.h"
+#include <unistd.h>
+#include "minishell_bonus.h"
+#include "execute_bonus.h"
 
 void		get_sep_pipe(char *line, t_env *env)
 {
 	char	**instructions;
 	size_t	i;
 
+	tcsetattr(STDIN_FILENO, TCSADRAIN, &(env->termios_save));
 	if (!(instructions = custom_split_sep_pipe(line)))
 		return ;
 	if (instructions[0] && instructions[1])
 		execute_pipeline(instructions, env);
 	else
 		execute_standalone(instructions[0], env);
+	tcsetattr(STDIN_FILENO, TCSADRAIN, &(env->termios));
 	i = 0;
 	while (instructions[i])
 		free(instructions[i++]);

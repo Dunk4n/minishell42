@@ -6,7 +6,7 @@
 /*   By: cal-hawa <cal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 11:20:40 by cal-hawa          #+#    #+#             */
-/*   Updated: 2020/01/11 16:45:06 by niduches         ###   ########.fr       */
+/*   Updated: 2020/01/12 21:05:49 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ static int		redirect_intput(char *file_name, int oflag, int stdin)
 	return (1);
 }
 
-int				set_redirections(char **redirs, t_env *env)
+int				set_redirections(char **redirs)
 {
 	int			i;
 	char		*file_name;
@@ -101,7 +101,6 @@ int				set_redirections(char **redirs, t_env *env)
 	int			fd;
 	int			stdin;
 
-	(void)env;
 	if ((stdin = dup(0)) < 0)
 		return (-1);
 	i = 0;
