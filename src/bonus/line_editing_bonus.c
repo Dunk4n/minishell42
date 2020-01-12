@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 14:19:16 by niduches          #+#    #+#             */
-/*   Updated: 2020/01/12 18:12:09 by niduches         ###   ########.fr       */
+/*   Updated: 2020/01/12 19:27:58 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,18 @@ static int	is_newline_command(char *line, int idx)
 		return (0);
 	acc = 0;
 	i = 0;
+	printf("         [%c], [%c]\n\n\n", line[idx - 1], line[idx - 2]);
 	while (i < idx)
 	{
 		if (line[i] == '\"' && !((char*)(&acc))[1] && (i == 0 || line[i - 1] !=
 '\\'))
 			((char*)(&acc))[0] = (((char*)(&acc))[0] + 1) % 2;
 		else if (line[i] == '\'' && !((char*)(&acc))[0] && (i == 0 ||
-(line[i - 1] != '\\' && !((char*)(&acc))[1])))
+(line[i - 1] != '\\' || ((char*)(&acc))[1])))
+		{
+			printf("BBB\n\n");
 			((char*)(&acc))[1] = (((char*)(&acc))[1] + 1) % 2;
+		}
 		i++;
 	}
 	if (acc == 0)
