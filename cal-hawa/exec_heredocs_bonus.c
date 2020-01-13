@@ -6,12 +6,19 @@
 /*   By: cal-hawa <cal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/13 10:52:18 by cal-hawa          #+#    #+#             */
-/*   Updated: 2020/01/13 11:05:28 by cal-hawa         ###   ########.fr       */
+/*   Updated: 2020/01/13 13:20:26 by cal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_bonus.h"
 #include <unistd.h>
+#include <signal.h>
+
+static void		sighandler(int signal)
+{
+	if (signal == SIGINT)
+		exit(1);
+}
 
 static int		prompt(char *word, int stdin, int pipefd[2])
 {
@@ -48,7 +55,11 @@ int				here_doc(char *word, int stdin)
 		write(2, "syntax error\n", 13);
 		return (-1);
 	}
+	if (signal(SIGINT, &sighandler) == SIG_ERR)
+		return (-1);
 	if (prompt(word, stdin, pipefd) < 0)
+		return (-1);
+	if (signal(SIGINT, SIG_DFL) == SIG_ERR)
 		return (-1);
 	if (close(pipefd[1]) < 0)
 		return (-1);
