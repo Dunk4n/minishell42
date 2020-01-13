@@ -6,7 +6,7 @@
 /*   By: cal-hawa <cal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/05 11:38:10 by cal-hawa          #+#    #+#             */
-/*   Updated: 2020/01/12 20:53:17 by niduches         ###   ########.fr       */
+/*   Updated: 2020/01/13 10:56:49 by cal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@
 # define MAX_REDIRS	16
 
 # include "minishell.h"
-
-int				g_exit_status;
 
 /*
 ** Execute
@@ -51,6 +49,7 @@ int				standalone(char **arguments, char **redirections, t_env *env);
 ** Redirections
 */
 int				set_redirections(char **redirs);
+int				here_doc(char *word, int stdin);
 
 /*
 ** Arguments

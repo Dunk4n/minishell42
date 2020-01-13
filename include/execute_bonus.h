@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute.h                                          :+:      :+:    :+:   */
+/*   execute_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cal-hawa <cal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/05 11:38:10 by cal-hawa          #+#    #+#             */
-/*   Updated: 2020/01/12 21:00:46 by niduches         ###   ########.fr       */
+/*   Updated: 2020/01/13 10:56:43 by cal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@
 # define MAX_REDIRS	16
 
 # include "minishell_bonus.h"
-
-int				g_exit_status;
 
 /*
 ** Execute
@@ -51,6 +49,7 @@ int				standalone(char **arguments, char **redirections, t_env *env);
 ** Redirections
 */
 int				set_redirections(char **redirs);
+int				here_doc(char *word, int stdin);
 
 /*
 ** Arguments

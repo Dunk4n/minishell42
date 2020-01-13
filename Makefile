@@ -6,7 +6,7 @@
 #    By: cal-hawa <cal-hawa@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/15 19:02:16 by niduches          #+#    #+#              #
-#    Updated: 2020/01/12 21:05:31 by niduches         ###   ########.fr        #
+#    Updated: 2020/01/13 10:58:47 by cal-hawa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,6 +54,7 @@ CAL_PATH	=	exec_command.c				\
 				parse_split_redirections.c	\
 				built_in.c					\
 				execve_wrapper.c			\
+				exec_heredocs.c
 
 SRC = $(addprefix $(D_SRC),$(SRC_PATH))
 CAL = $(addprefix ./cal-hawa/,$(CAL_PATH))
@@ -100,6 +101,7 @@ CAL_PATH_BONUS	=	exec_command.c				\
 					parse_split_redirections.c	\
 					built_in.c					\
 					execve_wrapper.c			\
+					exec_heredocs_bonus.c
 
 SRC_BONUS = $(addprefix $(D_SRC),$(SRC_PATH_BONUS))
 CAL_BONUS = $(addprefix ./cal-hawa/,$(CAL_PATH_BONUS))

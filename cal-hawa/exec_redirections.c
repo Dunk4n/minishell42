@@ -6,7 +6,7 @@
 /*   By: cal-hawa <cal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 11:20:40 by cal-hawa          #+#    #+#             */
-/*   Updated: 2020/01/12 21:05:49 by niduches         ###   ########.fr       */
+/*   Updated: 2020/01/13 10:52:40 by cal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,30 +52,6 @@ static int		redirect_output(char *file_name, int oflag)
 	if ((fd = open(file_name, oflag, 0664)) < 0)
 		return (-1);
 	if (dup2(fd, 1) < 0)
-		return (-1);
-	return (1);
-}
-
-static int		here_doc(char *word, int stdin)
-{
-	char		*line;
-	int			pipefd[2];
-
-	if (pipe(pipefd) < 0)
-		return (-1);
-	ft_printf("> ");
-	while (get_next_line(stdin, &line))
-	{
-		if (ft_strcmp(line, word) == 0)
-			break;
-		write(pipefd[1], line, ft_strlen(line));
-		free(line);
-		write(pipefd[1], "\n", 1);
-		ft_printf("> ");
-	}
-	if (close(pipefd[1]) < 0)
-		return (-1);
-	if (dup2(pipefd[0], 0) < 0)
 		return (-1);
 	return (1);
 }
