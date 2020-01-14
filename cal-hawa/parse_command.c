@@ -6,7 +6,7 @@
 /*   By: cal-hawa <cal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/05 12:18:32 by cal-hawa          #+#    #+#             */
-/*   Updated: 2020/01/05 12:43:28 by cal-hawa         ###   ########.fr       */
+/*   Updated: 2020/01/14 10:45:58 by cal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int				parse_cmd(char *cmd, char **redirs, char **args)
 		cmd_len++;
 	if ((nredirs = split_redirections(cmd, redirs)) < 0)
 		return (nredirs);
-	if ((nargs = split_arguments(cmd, cmd_len, args) < 0))
+	if ((nargs = split_arguments(cmd, cmd_len, args)) < 0)
 		return (nargs);
 	return (1);
 }
