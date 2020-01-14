@@ -6,12 +6,12 @@
 /*   By: cal-hawa <cal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/05 11:38:10 by cal-hawa          #+#    #+#             */
-/*   Updated: 2020/01/13 10:56:43 by cal-hawa         ###   ########.fr       */
+/*   Updated: 2020/01/14 08:36:36 by cal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXECUTE_H
-# define EXECUTE_H
+#ifndef EXECUTE_BONUS_H
+# define EXECUTE_BONUS_H
 
 # define MAX_ARGS	32
 # define MAX_REDIRS	16
@@ -21,8 +21,8 @@
 /*
 ** Execute
 */
-int					execute_pipeline(char **commands, t_env *env);
-int					execute_standalone(char *command, t_env *env);
+int				execute_pipeline(char **commands, t_env *env);
+int				execute_standalone(char *command, t_env *env);
 
 /*
 ** Parse
