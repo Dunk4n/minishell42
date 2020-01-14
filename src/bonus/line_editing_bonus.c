@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 14:19:16 by niduches          #+#    #+#             */
-/*   Updated: 2020/01/12 21:06:42 by niduches         ###   ########.fr       */
+/*   Updated: 2020/01/14 09:53:02 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,7 @@ int			is_term_command(char *buff, t_cursor *cur, char *line)
 		cur->line_max++;
 		return (0);
 	}
-	if (!ft_strncmp("cc", buff, 2) || !ft_strncmp("vv", buff, 2) ||
-!ft_strncmp("xx", buff, 2) || !ft_strncmp("CC", buff, 2) ||
-!ft_strncmp("XX", buff, 2))
+	if (*buff == 23 || *buff == 5 || *buff == 18 || *buff == 20 || *buff == 21)
 		return (1);
 	if (*buff == 27 || *buff == 127)
 		return (1);

@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/05 10:01:41 by niduches          #+#    #+#             */
-/*   Updated: 2020/01/05 10:12:52 by niduches         ###   ########.fr       */
+/*   Updated: 2020/01/14 10:19:33 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,8 @@ void		get_exec_path(char *path, char *name, t_env *env)
 	char	*env_path;
 
 	path[0] = '\0';
+	if (ft_strlen(name) >= 255)
+		return ;
 	if (!is_direct_path(name))
 	{
 		if (*name != '/')

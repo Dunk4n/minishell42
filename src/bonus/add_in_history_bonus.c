@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 14:17:35 by niduches          #+#    #+#             */
-/*   Updated: 2020/01/11 14:20:10 by niduches         ###   ########.fr       */
+/*   Updated: 2020/01/14 10:03:21 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ void	add_all_line(char *line, t_cursor *cur)
 
 	i = 0;
 	nb = 0;
-	while (line[i])
+	while (i < LINE_SIZE && line[i])
 	{
 		j = 0;
-		while (line[i + j] && line[i + j] != '\n')
+		while (i + j < LINE_SIZE && line[i + j] && line[i + j] != '\n')
 			j++;
 		nb += 1 + (j + (!nb ? cur->startx + 3 : 0)) / cur->term_col;
 		i += j + 1;
