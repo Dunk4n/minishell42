@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/15 19:50:01 by niduches          #+#    #+#             */
-/*   Updated: 2020/01/12 18:14:46 by niduches         ###   ########.fr       */
+/*   Updated: 2020/01/14 10:43:41 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ t_env		init(char **arg_env)
 	size_t	i;
 
 	g_exit = 0;
+	g_exec = 0;
 	i = 0;
 	while (i < HISTORY_SIZE)
 		env.hist[i++] = NULL;

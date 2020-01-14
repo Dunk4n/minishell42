@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/15 19:07:52 by niduches          #+#    #+#             */
-/*   Updated: 2020/01/14 09:56:42 by niduches         ###   ########.fr       */
+/*   Updated: 2020/01/14 10:43:15 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # define HISTORY_SIZE 500
 
 int		g_exit;
+int		g_exec;
 
 typedef struct	s_env
 {

@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/15 19:50:01 by niduches          #+#    #+#             */
-/*   Updated: 2020/01/12 18:52:46 by niduches         ###   ########.fr       */
+/*   Updated: 2020/01/14 10:43:33 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ t_env		init(char **arg_env)
 	t_env	env;
 
 	g_exit = 0;
+	g_exec = 0;
 	env.env = NULL;
 	env.ret = 0;
 	env.nb_env = 0;

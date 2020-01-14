@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/09 13:41:06 by niduches          #+#    #+#             */
-/*   Updated: 2020/01/12 18:15:06 by niduches         ###   ########.fr       */
+/*   Updated: 2020/01/14 10:44:22 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,10 @@ void	sig_handler(int signal)
 		g_exit = 1;
 	}
 	else if (signal == SIGQUIT)
-		return ;
+	{
+		if (g_exec)
+			write(1, "\n", 1);
+	}
 }
 
 int		main(int ac, char **av, char **arg_env)

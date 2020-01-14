@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 17:41:38 by niduches          #+#    #+#             */
-/*   Updated: 2020/01/12 19:55:10 by niduches         ###   ########.fr       */
+/*   Updated: 2020/01/14 10:48:46 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,14 @@ void		get_sep_pipe(char *line, t_env *env)
 	size_t	i;
 
 	tcsetattr(STDIN_FILENO, TCSADRAIN, &(env->termios_save));
+	g_exec = 1;
 	if (!(instructions = custom_split_sep_pipe(line)))
 		return ;
 	if (instructions[0] && instructions[1])
 		execute_pipeline(instructions, env);
 	else
 		execute_standalone(instructions[0], env);
+	g_exec = 0;
 	tcsetattr(STDIN_FILENO, TCSADRAIN, &(env->termios));
 	i = 0;
 	while (instructions[i])

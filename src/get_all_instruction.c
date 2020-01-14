@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 17:41:38 by niduches          #+#    #+#             */
-/*   Updated: 2020/01/12 19:46:50 by niduches         ###   ########.fr       */
+/*   Updated: 2020/01/14 10:48:55 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,12 @@ void		get_sep_pipe(char *line, t_env *env)
 
 	if (!(instructions = custom_split_sep_pipe(line)))
 		return ;
+	g_exec = 1;
 	if (instructions[0] && instructions[1])
 		execute_pipeline(instructions, env);
 	else
 		execute_standalone(instructions[0], env);
+	g_exec = 0;
 	i = 0;
 	while (instructions[i])
 		free(instructions[i++]);
