@@ -6,7 +6,7 @@
 /*   By: cal-hawa <cal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/13 10:52:18 by cal-hawa          #+#    #+#             */
-/*   Updated: 2020/01/14 08:32:47 by cal-hawa         ###   ########.fr       */
+/*   Updated: 2020/01/14 09:24:19 by cal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ static int		prompt(char *word, int stdin, int pipefd[2])
 		if (rd == 0)
 		{
 			free(line);
-			write(2, "warning: here-document delimited by end-of-file\n", 49);
 			return (1);
 		}
 		if (ft_strcmp(line, word) == 0)
