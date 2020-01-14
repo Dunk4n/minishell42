@@ -6,7 +6,7 @@
 #    By: cal-hawa <cal-hawa@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/12/15 19:02:16 by niduches          #+#    #+#              #
-#    Updated: 2020/01/13 10:58:47 by cal-hawa         ###   ########.fr        #
+#    Updated: 2020/01/14 10:58:34 by niduches         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -112,7 +112,7 @@ NAME	=	minishell
 OBJ			=	$(SRC:%.c=$(BUILD_DIR)/%.o)
 OBJ_BONUS	=	$(SRC_BONUS:%.c=$(BUILD_DIR)/%.o)
 
-CFLAGS	=	-g -fsanitize=address -I$(D_INC) -Wall -Wextra #-Werror
+CFLAGS	=	-I$(D_INC) -Wall -Wextra -Werror
 
 LDFLAGS	=	-L./libft/ -lft -ltermcap
 
