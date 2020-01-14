@@ -6,7 +6,7 @@
 /*   By: cal-hawa <cal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/05 11:30:32 by cal-hawa          #+#    #+#             */
-/*   Updated: 2020/01/09 14:32:25 by cal-hawa         ###   ########.fr       */
+/*   Updated: 2020/01/14 08:33:59 by cal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,19 @@ static void		destroy(char **redirs, char **args)
 	}
 }
 
-static int			execute_command(char *cmd, int flag, t_env *env)
+static int		execute_command(char *cmd, int flag, t_env *env)
 {
-	char			*redirections[MAX_REDIRS];
-	char			*arguments[MAX_ARGS];
-	int				n;
+	char		*redirections[MAX_REDIRS];
+	char		*arguments[MAX_ARGS];
+	int			n;
+	int			i;
 
 	if ((n = parse_cmd(cmd, redirections, arguments)) < 0)
 	{
 		destroy(redirections, arguments);
 		return (n);
 	}
-	int	i = 0;
+	i = 0;
 	while (redirections[i])
 		i++;
 	i = 0;
@@ -58,9 +59,9 @@ static int			execute_command(char *cmd, int flag, t_env *env)
 	return (n);
 }
 
-int					execute_pipeline(char **commands, t_env *env)
+int				execute_pipeline(char **commands, t_env *env)
 {
-	int				n;
+	int			n;
 
 	n = 0;
 	while (commands[n])
@@ -81,7 +82,7 @@ int					execute_pipeline(char **commands, t_env *env)
 	return (1);
 }
 
-int					execute_standalone(char *command, t_env *env)
+int				execute_standalone(char *command, t_env *env)
 {
 	return (execute_command(command, 0, env));
 }

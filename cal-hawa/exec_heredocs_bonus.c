@@ -6,7 +6,7 @@
 /*   By: cal-hawa <cal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/13 10:52:18 by cal-hawa          #+#    #+#             */
-/*   Updated: 2020/01/13 13:20:26 by cal-hawa         ###   ########.fr       */
+/*   Updated: 2020/01/14 08:32:47 by cal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int		prompt(char *word, int stdin, int pipefd[2])
 			return (1);
 		}
 		if (ft_strcmp(line, word) == 0)
-			break;
+			break ;
 		write(pipefd[1], line, ft_strlen(line));
 		free(line);
 		write(pipefd[1], "\n", 1);

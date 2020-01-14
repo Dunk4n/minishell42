@@ -6,7 +6,7 @@
 /*   By: cal-hawa <cal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/18 08:55:04 by cal-hawa          #+#    #+#             */
-/*   Updated: 2020/01/12 21:01:45 by niduches         ###   ########.fr       */
+/*   Updated: 2020/01/14 08:33:11 by cal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@
 #include "execute.h"
 #include "built_in.h"
 
-static int		parent_process(pid_t child_pid, int nw_in, int nw_out, t_env *env)
+static int		parent_process(pid_t child_pid, int nw_in,
+								int nw_out, t_env *env)
 {
 	int			wstatus;
 

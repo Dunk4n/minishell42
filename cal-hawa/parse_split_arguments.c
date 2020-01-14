@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   split_arguments.c                                  :+:      :+:    :+:   */
+/*   parse_split_arguments.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cal-hawa <cal-hawa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/15 15:54:14 by cal-hawa          #+#    #+#             */
-/*   Updated: 2020/01/12 19:12:23 by niduches         ###   ########.fr       */
+/*   Updated: 2020/01/14 08:33:27 by cal-hawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int		quoted_argument(char *str, char **args, int nargs, int quote)
 
 	dup = ++str;
 	while (*str && (quote = process_quote(*str, quote)))
-			str++;
+		str++;
 	c = *str;
 	*str = '\0';
 	if (!(args[nargs] = str_trim(dup, ' ')))
@@ -38,7 +38,7 @@ static int		argument(char *str, char **args, int nargs, int quote)
 
 	dup = str;
 	while (*str && *str != ' ' && !(quote = process_quote(*str, quote)))
-			str++;
+		str++;
 	c = *str;
 	*str = '\0';
 	if (!(args[nargs] = str_trim(dup, ' ')))
