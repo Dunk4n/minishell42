@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/11 14:17:35 by niduches          #+#    #+#             */
-/*   Updated: 2020/01/14 10:03:21 by niduches         ###   ########.fr       */
+/*   Updated: 2020/01/14 14:38:28 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,9 @@ int		add_in_history(t_env *env, char *line)
 	size_t	i;
 
 	if (!line || !env || !ft_strcmp(line, env->hist[0]))
-	{
-		free(line);
 		return (1);
-	}
-	tmp2 = line;
+	if (!(tmp2 = ft_strdup(line)))
+		return (1);
 	i = 0;
 	while (i < HISTORY_SIZE && tmp2)
 	{

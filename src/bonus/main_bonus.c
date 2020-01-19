@@ -6,7 +6,7 @@
 /*   By: niduches <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/09 13:41:06 by niduches          #+#    #+#             */
-/*   Updated: 2020/01/14 10:44:22 by niduches         ###   ########.fr       */
+/*   Updated: 2020/01/14 14:38:09 by niduches         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,13 @@ signal(SIGQUIT, &sig_handler) == SIG_ERR || !((env = init(arg_env)).env))
 			ft_exit(0, NULL, &env);
 		}
 		g_exit = 0;
+		add_in_history(&env, line);
 		if (!(line = to_line_env(line, &env)))
 		{
 			free_env(&env);
 			return (0);
 		}
 		get_all_instruction(line, &env);
-		add_in_history(&env, line);
 	}
 	return (env.ret);
 }
